@@ -1,0 +1,196 @@
+With both Scanner and Compare components working in Next.js, the core scanning engine of your SaaS is now fully migrated.
+
+We’re now ready for the next major step…
+
+⭐ NEXT MAJOR PHASE
+
+Add the layout structure (Navbar + Footer)
+This gives your app a real SaaS feel and prepares the ground for:
+
+Login / Signup buttons
+
+Dashboard link
+
+Branding
+
+Navigation
+
+This is the next natural step before we move into Supabase Auth, because the navbar will contain:
+
+Login
+
+Sign Up
+
+Dashboard (when logged in)
+
+And once Nav+Footer are done, we’ll move into:
+
+Supabase Login
+
+Signup
+
+Auth state
+
+Protected routes
+
+Dashboard pages
+
+Saving scans
+
+Step-by-step, all guided.
+
+⭐ STEP 15 — Create Navbar Component
+👉 Your task:
+
+Create a file:
+
+components/Navbar.js
+
+Paste this code:
+
+"use client";
+import Link from "next/link";
+
+export default function Navbar() {
+  return (
+    <nav className="w-full bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between">
+      <Link href="/" className="text-2xl font-bold text-blue-600">
+        TrueTechFinder
+      </Link>
+
+      <div className="flex gap-6 text-gray-700">
+        <Link href="/pricing" className="hover:text-blue-600">
+          Pricing
+        </Link>
+        <Link href="/blog" className="hover:text-blue-600">
+          Blog
+        </Link>
+
+        <Link href="/login" className="hover:text-blue-600">
+          Login
+        </Link>
+
+        <Link
+          href="/signup"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Sign Up
+        </Link>
+      </div>
+    </nav>
+  );
+}
+
+
+This gives you a professional top navigation bar.
+
+⭐ STEP 16 — Create Footer Component
+👉 Your task:
+
+Create file:
+
+components/Footer.js
+
+Paste this code:
+
+export default function Footer() {
+  return (
+    <footer className="w-full bg-gray-100 py-6 mt-20 text-center text-gray-600">
+      <p>© {new Date().getFullYear()} TrueTechFinder. All rights reserved.</p>
+    </footer>
+  );
+}
+
+⭐ STEP 17 — Add Layout Wrapper (Global Layout)
+
+Next.js uses a layout.js file to wrap all pages.
+
+👉 Your task:
+
+Open:
+
+app/layout.js
+
+Replace the content with:
+
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export const metadata = {
+  title: "TrueTechFinder – AI Powered Website Tech Scanner",
+  description: "Discover any website’s technology stack instantly with AI.",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className="bg-gray-50">
+        <Navbar />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
+
+
+This instantly makes every page include:
+
+Navbar
+
+Footer
+
+Exactly like a real SaaS product.
+
+⭐ STEP 18 — TEST THE NAVBAR & FOOTER
+
+Click Run in Replit
+
+Refresh the homepage
+
+You should see:
+
+Logo/brand
+
+Pricing link
+
+Blog link
+
+Login
+
+Sign Up
+
+Footer at bottom
+
+If everything is visible:
+
+Reply:
+
+👉 “Navbar & Footer working.”
+
+⭐ WHAT HAPPENS NEXT (After You Confirm)
+
+After navbar/footer are confirmed, we will:
+
+⭐ PHASE 3 — Supabase Authentication (Login & Signup)
+
+We will add:
+
+→ /login page
+→ /signup page
+→ “sign in with email” (magic link)
+→ auth state in navbar
+→ logged-in dashboard link
+→ logout function
+
+This will take your SaaS from “frontend” to a real authenticated platform.
+
+Once auth is done, we move into:
+
+⭐ PHASE 4 — Dashboard + Saved Scans
+
+This is where the product becomes premium.
+
+Reply when the navbar and footer are working:
+👉 “Navbar & Footer working.”

@@ -3,7 +3,7 @@ import CompareInput from "../components/CompareInput";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-20 text-center">
+    <div className="px-4 py-20 text-center">
       <h1 className="text-4xl md:text-6xl font-bold">
         Discover any website's technology stack instantly
       </h1>
@@ -20,6 +20,6 @@ export default function Home() {
         <h2 className="text-2xl font-semibold">How it works</h2>
         <p className="mt-4">Enter a website → We scan it → You get insights.</p>
       </div>
-    </main>
+    </div>
   );
 }
