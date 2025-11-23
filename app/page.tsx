@@ -1,15 +1,22 @@
+import ScannerInput from "@/components/ScannerInput";
+
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-4xl font-bold">Welcome to Next.js!</h1>
-        <p className="text-lg">
-          Get started by editing{" "}
-          <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-            app/page.tsx
-          </code>
-        </p>
-      </main>
-    </div>
+    <main className="min-h-screen bg-gray-50 px-4 py-20 text-center">
+      <h1 className="text-4xl md:text-6xl font-bold">
+        Discover any website's technology stack instantly
+      </h1>
+
+      <p className="text-lg md:text-xl text-gray-600 mt-4">
+        AI-powered scanning and insights for developers, marketers, and founders.
+      </p>
+
+      <ScannerInput />
+
+      <div className="mt-16 max-w-3xl mx-auto text-gray-700">
+        <h2 className="text-2xl font-semibold">How it works</h2>
+        <p className="mt-4">Enter a website → We scan it → You get insights.</p>
+      </div>
+    </main>
   );
 }

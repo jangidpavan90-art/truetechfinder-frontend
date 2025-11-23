@@ -1,0 +1,183 @@
+Perfect — cleanup is done, so your Replit environment is now ready for us to start building the real frontend.
+
+We now begin the core part of your product:
+
+the homepage with the scanner, exactly like BuiltWith — but better and powered by AI.
+
+This is where your MVP becomes a real SaaS product.
+
+⭐ STEP 6 — Create the Homepage Scanner Component
+
+We will create a reusable scanner component that will appear on your homepage and send users to the /scan?url=... route.
+
+👉 Your task:
+
+Create a new file in Replit:
+
+components/ScannerInput.js
+
+(If the components folder doesn’t exist, create it.)
+
+Then paste the following code:
+
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function ScannerInput() {
+  const [url, setUrl] = useState("");
+  const router = useRouter();
+
+  const handleScan = () => {
+    if (!url) {
+      alert("Please enter a URL first.");
+      return;
+    }
+    router.push(`/scan?url=${encodeURIComponent(url)}`);
+  };
+
+  return (
+    <div className="w-full max-w-xl mx-auto mt-8 flex gap-2">
+      <input
+        type="text"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        placeholder="Enter a website URL"
+        className="flex-1 px-4 py-3 border rounded-lg text-black"
+      />
+      <button
+        onClick={handleScan}
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      >
+        Scan
+      </button>
+    </div>
+  );
+}
+
+
+This does 3 things:
+
+Accepts a URL
+
+When the button is clicked → goes to /scan
+
+Passes the URL as a query parameter
+
+⭐ STEP 7 — Replace Homepage With Scanner-Hero Section
+
+Now we update your homepage (app/page.js) so the user sees:
+
+Big headline
+
+Sub-text
+
+Scanner input box
+
+👉 Your task:
+
+Open file:
+
+app/page.js
+
+Delete everything inside that file, and replace it with:
+
+import ScannerInput from "@/components/ScannerInput";
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-gray-50 px-4 py-20 text-center">
+      <h1 className="text-4xl md:text-6xl font-bold">
+        Discover any website’s technology stack instantly
+      </h1>
+
+      <p className="text-lg md:text-xl text-gray-600 mt-4">
+        AI-powered scanning and insights for developers, marketers, and founders.
+      </p>
+
+      <ScannerInput />
+
+      <div className="mt-16 max-w-3xl mx-auto text-gray-700">
+        <h2 className="text-2xl font-semibold">How it works</h2>
+        <p className="mt-4">Enter a website → We scan it → You get insights.</p>
+      </div>
+    </main>
+  );
+}
+
+
+Now your homepage looks clean, modern, and professional.
+
+⭐ STEP 8 — Create the Scan Results Page (Starter Structure)
+
+We will now populate the /scan page.
+
+👉 Your task:
+
+Open file:
+
+app/scan/page.js
+
+Delete everything inside it and paste this starter code:
+
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
+export default function ScanPage() {
+  const searchParams = useSearchParams();
+  const url = searchParams.get("url");
+
+  const [loading, setLoading] = useState(true);
+  const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    if (!url) return;
+
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+
+    fetch(`${apiBase}/scan?url=${encodeURIComponent(url)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setResult(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Scan error:", err);
+        setLoading(false);
+      });
+  }, [url]);
+
+  if (!url) {
+    return <div className="p-10 text-center text-red-500">No URL provided.</div>;
+  }
+
+  if (loading) {
+    return <div className="p-10 text-center">Scanning <b>{url}</b>...</div>;
+  }
+
+  return (
+    <div className="min-h-screen px-6 py-10">
+      <h1 className="text-3xl font-bold">Results for {url}</h1>
+
+      <pre className="mt-6 bg-gray-100 p-4 rounded-lg overflow-auto">
+        {JSON.stringify(result, null, 2)}
+      </pre>
+    </div>
+  );
+}
+
+
+This is not the final UI —
+This is the starter we will beautify later.
+
+Right now, we just need to ensure:
+
+The scanner works
+
+The API responds
+
+The screen shows real output
+
+We will style and format it after everything works technically.
