@@ -1,4 +1,5 @@
 import ScannerInput from "../components/ScannerInput";
+import CompareInput from "../components/CompareInput";
 
 export default function Home() {
   return (
@@ -12,6 +13,8 @@ export default function Home() {
       </p>
 
       <ScannerInput />
+      
+      <CompareInput />
 
       <div className="mt-16 max-w-3xl mx-auto text-gray-700">
         <h2 className="text-2xl font-semibold">How it works</h2>

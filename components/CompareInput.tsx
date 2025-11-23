@@ -1,0 +1,43 @@
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function CompareInput() {
+  const [url1, setUrl1] = useState("");
+  const [url2, setUrl2] = useState("");
+  const router = useRouter();
+
+  const handleCompare = () => {
+    if (!url1 || !url2) {
+      alert("Please enter both URLs before comparing.");
+      return;
+    }
+    router.push(`/compare?url1=${encodeURIComponent(url1)}&url2=${encodeURIComponent(url2)}`);
+  };
+
+  return (
+    <div className="w-full max-w-2xl mx-auto mt-10 grid grid-cols-1 gap-4">
+      <input
+        type="text"
+        placeholder="First website URL"
+        className="px-4 py-3 border rounded-lg text-black"
+        value={url1}
+        onChange={(e) => setUrl1(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Second website URL"
+        className="px-4 py-3 border rounded-lg text-black"
+        value={url2}
+        onChange={(e) => setUrl2(e.target.value)}
+      />
+
+      <button
+        onClick={handleCompare}
+        className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 mt-2"
+      >
+        Compare
+      </button>
+    </div>
+  );
+}
