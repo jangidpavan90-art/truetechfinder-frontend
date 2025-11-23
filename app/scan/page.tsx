@@ -8,7 +8,7 @@ export default function ScanPage() {
   const url = searchParams.get("url");
 
   const [loading, setLoading] = useState(true);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
     if (!url) return;

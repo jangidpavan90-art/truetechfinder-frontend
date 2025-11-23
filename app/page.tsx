@@ -1,4 +1,4 @@
-import ScannerInput from "@/components/ScannerInput";
+import ScannerInput from "../components/ScannerInput";
 
 export default function Home() {
   return (
