@@ -47,3 +47,10 @@ externalPort = 80
 [[ports]]
 localPort = 38605
 externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+NEXT_PUBLIC_API_BASE = "https://664823cb-86c7-4fba-bb94-0a07da097aeb-00-tmqkd3bttqp0.pike.replit.dev"
+NEXT_PUBLIC_SUPABASE_URL = "https://qkaspubhfgvwlhsabynf.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrYXNwdWJoZmd2d2xoc2FieW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5OTQ3NjMsImV4cCI6MjA0ODU3MDc2M30.qhTO5vJwEi3RrRKGPGzDBzVzG8b9Y_fJ_-Ij9lAPKGU"
