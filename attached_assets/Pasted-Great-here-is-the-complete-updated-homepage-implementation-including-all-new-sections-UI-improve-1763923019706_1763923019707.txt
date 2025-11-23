@@ -1,0 +1,322 @@
+Great — here is the complete updated homepage implementation, including all new sections, UI improvements, toggles, and structure you requested.
+
+Everything is designed to paste directly into your Replit Next.js project.
+
+I will give you:
+
+✅ 1. All new components
+✅ 2. Updated homepage (app/page.js)
+✅ 3. Tailwind styling (light additions)
+✅ 4. Exactly where each file goes
+
+This will give your homepage a professional SaaS look, similar to BuiltWith + modern AI tools.
+
+⭐ BEFORE YOU START
+
+Make sure you have the folder structure:
+
+components/
+app/
+styles/
+
+
+If anything doesn’t exist, just create it in Replit.
+
+⭐ PART 1 — NEW COMPONENTS
+
+Copy/paste each exactly as provided.
+
+📌 1. ToggleScanMode Component
+
+File: components/ToggleScanMode.js
+
+"use client";
+import { useState } from "react";
+import ScannerInput from "./ScannerInput";
+import CompareInput from "./CompareInput";
+
+export default function ToggleScanMode() {
+  const [mode, setMode] = useState("single");
+
+  return (
+    <div className="w-full max-w-2xl mx-auto mt-10">
+      {/* Toggle Buttons */}
+      <div className="flex justify-center gap-4 mb-6">
+        <button
+          onClick={() => setMode("single")}
+          className={`px-4 py-2 rounded-lg ${
+            mode === "single"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-700"
+          }`}
+        >
+          Single Scan
+        </button>
+
+        <button
+          onClick={() => setMode("compare")}
+          className={`px-4 py-2 rounded-lg ${
+            mode === "compare"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-700"
+          }`}
+        >
+          Compare Scan
+        </button>
+      </div>
+
+      {/* Conditional Rendering */}
+      {mode === "single" ? <ScannerInput /> : <CompareInput />}
+    </div>
+  );
+}
+
+📌 2. FeaturesSection Component
+
+File: components/FeaturesSection.js
+
+export default function FeaturesSection() {
+  const features = [
+    {
+      title: "AI-Powered Technology Detection",
+      desc: "We extract tech stacks using advanced AI — fast, accurate, and insightful.",
+    },
+    {
+      title: "Website Comparison",
+      desc: "Compare two websites side-by-side with full tech breakdowns.",
+    },
+    {
+      title: "Fast & Lightweight",
+      desc: "Instant results without slow and outdated scanning engines.",
+    },
+    {
+      title: "Clear, Beautiful UI",
+      desc: "Designed for marketers, developers and founders.",
+    },
+    {
+      title: "Modern Tech Stack",
+      desc: "Built with FastAPI, Next.js, and OpenAI for best-in-class performance.",
+    },
+    {
+      title: "Future: Bulk & Monitoring",
+      desc: "Scheduled scans, tracking & alerts — coming soon.",
+    },
+  ];
+
+  return (
+    <section id="features" className="py-20 bg-white">
+      <h2 className="text-4xl font-bold text-center">Features</h2>
+
+      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-10 px-6">
+        {features.map((f, i) => (
+          <div
+            key={i}
+            className="bg-gray-50 p-6 rounded-xl border hover:shadow-md transition"
+          >
+            <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+            <p className="text-gray-600">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+📌 3. UseCasesSection Component
+
+File: components/UseCasesSection.js
+
+export default function UseCasesSection() {
+  const useCases = [
+    {
+      title: "For Agencies",
+      desc: "Instantly audit client websites and recommend upgrades.",
+    },
+    {
+      title: "For Marketers",
+      desc: "See what tech competitors are using to improve strategy.",
+    },
+    {
+      title: "For Developers",
+      desc: "Understand tech stacks before starting integration or migration.",
+    },
+  ];
+
+  return (
+    <section id="use-cases" className="py-20 bg-gray-50">
+      <h2 className="text-4xl font-bold text-center">Who is this for?</h2>
+
+      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-10 px-6">
+        {useCases.map((u, i) => (
+          <div
+            key={i}
+            className="bg-white p-6 rounded-xl border hover:shadow-md transition"
+          >
+            <h3 className="text-xl font-semibold mb-2">{u.title}</h3>
+            <p className="text-gray-600">{u.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+📌 4. PricingPreview Component
+
+File: components/PricingPreview.js
+
+export default function PricingPreview() {
+  return (
+    <section id="pricing" className="py-20 bg-white border-t">
+      <h2 className="text-4xl font-bold text-center">Simple Pricing</h2>
+      <p className="text-center text-gray-600 mt-2">
+        Start free. Upgrade when you need more.
+      </p>
+
+      <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mt-12 px-6">
+        <div className="p-6 border rounded-xl text-center">
+          <h3 className="text-xl font-semibold">Free</h3>
+          <p className="text-gray-700 mt-2">Basic scans</p>
+          <p className="text-3xl font-bold mt-4">₹0</p>
+        </div>
+
+        <div className="p-6 border rounded-xl text-center bg-blue-50 border-blue-300">
+          <h3 className="text-xl font-semibold">Pro</h3>
+          <p className="text-gray-700 mt-2">Unlimited scans</p>
+          <p className="text-3xl font-bold mt-4">₹999/mo</p>
+        </div>
+
+        <div className="p-6 border rounded-xl text-center">
+          <h3 className="text-xl font-semibold">Agency</h3>
+          <p className="text-gray-700 mt-2">Bulk & monitoring</p>
+          <p className="text-3xl font-bold mt-4">₹2499/mo</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+📌 5. BannerCTA Component
+
+File: components/BannerCTA.js
+
+import Link from "next/link";
+
+export default function BannerCTA() {
+  return (
+    <section className="bg-blue-600 text-white py-16 text-center">
+      <h2 className="text-3xl font-bold">Start your first scan now — it’s free!</h2>
+      <p className="text-blue-100 mt-2">No signup required.</p>
+
+      <Link
+        href="/"
+        className="inline-block mt-6 px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold"
+      >
+        Scan a Website
+      </Link>
+    </section>
+  );
+}
+
+⭐ PART 2 — UPDATED HOMEPAGE
+
+Now update app/page.js with this full homepage layout:
+
+File: app/page.js
+
+import ToggleScanMode from "@/components/ToggleScanMode";
+import FeaturesSection from "@/components/FeaturesSection";
+import UseCasesSection from "@/components/UseCasesSection";
+import PricingPreview from "@/components/PricingPreview";
+import BannerCTA from "@/components/BannerCTA";
+
+export default function Home() {
+  return (
+    <>
+      {/* HERO SECTION */}
+      <main className="min-h-screen bg-gray-50 px-4 py-24 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+          Discover any website’s technology stack instantly
+        </h1>
+
+        <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
+          AI-powered scanning and insights for developers, marketers and agencies.
+        </p>
+
+        {/* Toggle between Single Scan / Compare */}
+        <ToggleScanMode />
+      </main>
+
+      {/* Features */}
+      <FeaturesSection />
+
+      {/* Use Cases */}
+      <UseCasesSection />
+
+      {/* Pricing Preview */}
+      <PricingPreview />
+
+      {/* Call to action */}
+      <BannerCTA />
+    </>
+  );
+}
+
+⭐ PART 3 — OPTIONAL TAILWIND IMPROVEMENTS
+
+If you want smoother transitions, add this to globals.css:
+
+html {
+  scroll-behavior: smooth;
+}
+
+⭐ DONE ✔
+
+Your homepage will now have:
+
+A polished hero
+
+Toggle between scanners
+
+Beautiful feature cards
+
+Use-case cards
+
+Pricing preview
+
+Professional CTA section
+
+Navbar + Footer (already working)
+
+This will feel like a real SaaS homepage.
+
+⭐ NEXT STEPS (When You Are Ready)
+
+After you confirm this homepage works, we will move to:
+
+✔ Add Login / Signup (Supabase Auth)
+✔ Add Dashboard UI
+✔ Save scans to database
+✔ Show scan history
+✔ Limit free users
+✔ Prepare for Hostinger deployment
+
+But only when you’re ready.
+
+⭐ YOUR TASK NOW
+
+Go to Replit and:
+
+Add all components
+
+Update app/page.js
+
+Run project
+
+Verify homepage sections look good
+
+Then reply:
+
+👉 “Homepage updated and working.”
+
+We will continue from there.
