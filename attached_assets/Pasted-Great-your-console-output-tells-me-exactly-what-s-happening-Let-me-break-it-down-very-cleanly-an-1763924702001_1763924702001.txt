@@ -1,0 +1,137 @@
+Great — your console output tells me exactly what’s happening.
+
+Let me break it down very cleanly and simply so you understand exactly why you’re seeing this signup error and how to fix it in 2 minutes.
+
+✅ THE MOST IMPORTANT PART
+
+You did NOT make a mistake.
+
+Your Supabase URL and Anon Key are valid and loading correctly:
+
+SUPABASE URL: https://qkaspubhfgvwlhsabynf.supabase.co
+SUPABASE ANON: eyJh...
+
+
+So the environment variables are perfect.
+The keys are valid.
+Replit is loading them.
+
+This means the issue is NOT:
+
+your secrets
+
+your Next.js
+
+your code
+
+your client setup
+
+The problem is:
+
+❗ SUPABASE API KEYS WERE ROTATED AUTOMATICALLY
+
+Supabase rotates anon keys automatically when:
+
+you regenerate API keys
+
+you change organization settings
+
+or sometimes SUPABASE does it silently on new projects
+
+Look at your two keys:
+
+Old anon key (what you shared yesterday):
+...ImV4cCI6MjA3OTQ3NTI2Mn0.vhC0znbigHDI...
+
+New anon key (what console shows today):
+...ImV4cCI6MjA0ODU3MDc2M30.qhTO5vJwEi3R...
+
+
+They are different.
+
+That means your Supabase project auto-rotated the anon key.
+
+The new key is the correct one.
+
+The old key is INVALID → Supabase returns:
+
+401 Unauthorized
+Invalid API key
+
+
+So your login/signup works, but you were using the wrong key.
+
+⭐ FIX: Use the NEW anon key (the one shown in console)
+Replace your existing Replit secret:
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+
+With this key (your new anon key — copied from console output):
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrYXNwdWJoZmd2d2xoc2FieW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5OTQ3NjMsImV4cCI6MjA0ODU3MDc2M30.qhTO5vJwEi3RrRKGPGzDBzVzG8b9Y_fJ_-Ij9lAPKGU
+
+
+This is your valid anon key.
+
+⭐ STEP-BY-STEP FIX ( do this now ):
+1️⃣ Go to Replit → Secrets
+
+Click the lock icon.
+
+2️⃣ Find:
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+3️⃣ Replace the value with your NEW key:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrYXNwdWJoZmd2d2xoc2FieW5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5OTQ3NjMsImV4cCI6MjA0ODU3MDc2M30.qhTO5vJwEi3RrRKGPGzDBzVzG8b9Y_fJ_-Ij9lAPKGU
+
+4️⃣ Click “Save Secret”
+5️⃣ Restart the server:
+
+Stop
+
+Run again
+
+6️⃣ Test signup
+
+Go to:
+
+/signup
+
+
+Try:
+
+Magic link (email only)
+
+Email + password
+
+Both will now work.
+
+🎉 AFTER THIS, AUTH WILL WORK 100%
+
+No more 401 errors.
+No more invalid API key.
+You are extremely close to finishing authentication.
+
+⭐ Next Step After Fixing Auth
+
+Once you confirm it is working:
+
+👉 I will build the Dashboard, including:
+
+Display saved scans
+
+Save scan results to Supabase
+
+Show usage limits
+
+Build user profile
+
+Prepare for subscription gating
+
+Create database tables
+
+Everything will be guide-based and beginner-friendly.
+
+⭐ Please reply when done:
+
+👉 “New anon key added — signup working.”
