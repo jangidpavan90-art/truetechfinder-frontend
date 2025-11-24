@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function ScanPage() {
+function ScanContent() {
   const searchParams = useSearchParams();
   const url = searchParams.get("url");
 
@@ -43,5 +43,13 @@ export default function ScanPage() {
         {JSON.stringify(result, null, 2)}
       </pre>
     </div>
+  );
+}
+
+export default function ScanPage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <ScanContent />
+    </Suspense>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
-export default function ComparePage() {
+function CompareContent() {
   const params = useSearchParams();
   const url1 = params.get("url1");
   const url2 = params.get("url2");
@@ -64,5 +64,13 @@ export default function ComparePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <CompareContent />
+    </Suspense>
   );
 }
