@@ -1,0 +1,124 @@
+⭐ STEP 1 — Add Technology Categorization Logic (Frontend)
+
+👉 In file:
+app/scan/page.js
+
+Add this helper function above your component:
+
+const categorizeTechnologies = (list = []) => {
+  const categories = {
+    "Frontend": [],
+    "Backend": [],
+    "CMS": [],
+    "Hosting": [],
+    "CDN": [],
+    "Analytics": [],
+    "Marketing": [],
+    "Security": [],
+    "Payments": [],
+    "Other": [],
+  };
+
+  list.forEach((tech) => {
+    const t = tech.toLowerCase();
+
+    if (t.includes("react") || t.includes("vue") || t.includes("angular")) {
+      categories["Frontend"].push(tech);
+    } 
+    else if (t.includes("node") || t.includes("python") || t.includes("php")) {
+      categories["Backend"].push(tech);
+    }
+    else if (t.includes("wordpress") || t.includes("shopify") || t.includes("drupal")) {
+      categories["CMS"].push(tech);
+    }
+    else if (t.includes("cloudflare") || t.includes("vercel") || t.includes("aws")) {
+      categories["Hosting"].push(tech);
+    }
+    else if (t.includes("cdn")) {
+      categories["CDN"].push(tech);
+    }
+    else if (t.includes("analytics") || t.includes("google tag")) {
+      categories["Analytics"].push(tech);
+    }
+    else if (t.includes("pixel") || t.includes("ads")) {
+      categories["Marketing"].push(tech);
+    }
+    else if (t.includes("ssl") || t.includes("security")) {
+      categories["Security"].push(tech);
+    }
+    else if (t.includes("stripe") || t.includes("paypal")) {
+      categories["Payments"].push(tech);
+    }
+    else {
+      categories["Other"].push(tech);
+    }
+  });
+
+  // Remove empty categories
+  return Object.fromEntries(
+    Object.entries(categories).filter(([_, value]) => value.length > 0)
+  );
+};
+
+⭐ STEP 2 — Use this inside your component instead of data.categories
+
+Replace:
+
+const categories = data?.categories || {};
+
+
+with:
+
+const categories = categorizeTechnologies(data?.technologies || []);
+
+⭐ STEP 3 — Test Again
+
+Now your /scan page will show:
+
+Frontend
+
+Backend
+
+Hosting
+
+CDN
+
+Analytics
+
+Other
+
+Each with tags.
+
+⭐ WHY THIS FIX WORKS
+
+Your backend does NOT send categorized tech data.
+
+Your frontend UI expects categories.
+
+So we are adding a smart categorizer on the frontend until we later upgrade the backend.
+
+This has no dependency on Supabase and will work immediately.
+
+⭐ NEXT — After you fix this
+
+Tell me:
+
+👉 “Category cards working.”
+
+Then I will upgrade the UI with:
+
+Icons (React, AWS, Cloudflare logos)
+
+Color styles
+
+AI insights box
+
+Compare UI improvement
+
+Missing tech detection UI
+
+“Share scan” link
+
+“Export PDF” button
+
+Just confirm when ready.
