@@ -1,0 +1,144 @@
+Normalize the backend response before categorizing
+
+We need to modify the code so:
+
+If data.technologies is a string → convert to array
+
+If data.technologies is an object → extract keys
+
+If data.technologies is missing → make it []
+
+If the format is unexpected → log it but don’t break UI
+
+This will fix the error and allow tag/category display to work for any backend shape.
+
+⭐ STEP 1 — Replace categorizeTechnologies with this improved version
+
+👉 Open: app/scan/page.js (or .tsx)
+Replace the old function with this one:
+
+const normalizeTechList = (techData) => {
+  if (!techData) return [];
+
+  // Case 1: Already an array
+  if (Array.isArray(techData)) {
+    return techData;
+  }
+
+  // Case 2: String like "React, Next.js, Cloudflare"
+  if (typeof techData === "string") {
+    return techData.split(",").map(t => t.trim()).filter(Boolean);
+  }
+
+  // Case 3: Object like { tech1: "React", tech2: "Next.js" }
+  if (typeof techData === "object") {
+    return Object.values(techData).map(String);
+  }
+
+  // Unknown format
+  console.warn("Unknown technologies format:", techData);
+  return [];
+};
+
+⭐ STEP 2 — Update category assignment to safely handle any input
+
+Replace the previous categorization code with:
+
+const categorizeTechnologies = (techData) => {
+  const list = normalizeTechList(techData);
+
+  const categories = {
+    Frontend: [],
+    Backend: [],
+    CMS: [],
+    Hosting: [],
+    CDN: [],
+    Analytics: [],
+    Marketing: [],
+    Security: [],
+    Payments: [],
+    Other: [],
+  };
+
+  list.forEach((tech) => {
+    const t = tech.toLowerCase();
+
+    if (t.includes("react") || t.includes("vue") || t.includes("angular") || t.includes("next") || t.includes("nuxt") || t.includes("jquery")) {
+      categories.Frontend.push(tech);
+    } else if (t.includes("node") || t.includes("python") || t.includes("php") || t.includes("ruby") || t.includes("java")) {
+      categories.Backend.push(tech);
+    } else if (t.includes("wordpress") || t.includes("shopify") || t.includes("drupal") || t.includes("wix")) {
+      categories.CMS.push(tech);
+    } else if (t.includes("cloudflare") || t.includes("vercel") || t.includes("aws") || t.includes("azure")) {
+      categories.Hosting.push(tech);
+    } else if (t.includes("cdn")) {
+      categories.CDN.push(tech);
+    } else if (t.includes("analytics") || t.includes("tag manager")) {
+      categories.Analytics.push(tech);
+    } else if (t.includes("ads") || t.includes("pixel")) {
+      categories.Marketing.push(tech);
+    } else if (t.includes("ssl") || t.includes("security") || t.includes("captcha")) {
+      categories.Security.push(tech);
+    } else if (t.includes("stripe") || t.includes("paypal")) {
+      categories.Payments.push(tech);
+    } else {
+      categories.Other.push(tech);
+    }
+  });
+
+  // Remove empty categories
+  return Object.fromEntries(Object.entries(categories).filter(([k, v]) => v.length > 0));
+};
+
+⭐ STEP 3 — Update usage in the UI
+
+Make sure this line matches:
+
+const categories = categorizeTechnologies(data?.technologies);
+
+⭐ STEP 4 — Test Again
+
+Open:
+
+https://a94dc689-f625-456c-944f-aaec0dba2504-00-te1ywvq32tek.sisko.replit.dev/scan?url=https%3A%2F%2Fwww.github.com
+
+
+Expected result:
+
+No more runtime error
+
+No crash
+
+If GitHub’s backend returns tech list → categories will appear
+
+If GitHub is protected (common), you will at least get the Other category filled
+
+⭐ Why GitHub Often Returns Almost No Tech
+
+GitHub blocks scanners heavily.
+Most scanners (even Wappalyzer API) will return limited data.
+
+So you may see:
+
+Other:
+  - GitHub Pages
+  - Nginx
+
+
+This is normal.
+
+Try a more open website like:
+
+?url=https://wordpress.com
+?url=https://stripe.com
+?url=https://vercel.com
+?url=https://hubspot.com
+
+
+These will return many categories and tags.
+
+⭐ REPLY WHEN READY
+
+After you apply the fix, test, and tell me:
+
+👉 “Updated — no error now.”
