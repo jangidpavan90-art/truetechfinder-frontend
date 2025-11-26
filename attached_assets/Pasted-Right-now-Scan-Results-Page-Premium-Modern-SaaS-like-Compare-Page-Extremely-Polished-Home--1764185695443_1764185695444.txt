@@ -1,0 +1,231 @@
+Right now:
+
+Scan Results Page = Premium, Modern, SaaS-like
+
+Compare Page = Extremely Polished
+
+Home Page = Basic (compared to new visual quality)
+
+To make TrueTechFinder feel like a real SaaS product, your homepage must match the level of quality of the feature pages.
+
+I will help you redesign it completely with:
+
+⭐ Modern SaaS hero section
+⭐ Better visual hierarchy
+⭐ Strong copywriting
+⭐ Feature cards
+⭐ Product screenshots (using your new scanner UI)
+⭐ Call-to-action buttons
+⭐ Social proof section (optional)
+⭐ Clean footer
+
+And most importantly:
+
+👉 A consistent design language with the Scan & Compare pages.
+
+Below is your new, professionally rewritten homepage copy
+Followed by
+Your updated, polished homepage code.
+
+⭐ NEW HOMEPAGE COPY (STRONG & SAAS-READY)
+Hero Section
+
+Find What Powers Any Website — Instantly.
+TrueTechFinder detects technologies, frameworks, CMS platforms, hosting providers, CDNs, analytics, and more in real time — with AI insights and side-by-side comparisons.
+
+CTA buttons:
+
+Scan a website (primary)
+
+View product demo (secondary)
+
+Sub-headline
+
+The fastest and most accurate way to analyze any website’s tech stack.
+
+Feature Highlights
+🔍 AI-Enhanced Technology Detection
+
+Identify frameworks, hosting, CMS, performance tools, analytics, security layers, and everything in between — powered by deep analysis + AI insights.
+
+⚡ Side-By-Side Comparisons
+
+Compare any two websites. Instantly highlight shared technologies, differences, and similarity scores.
+
+📸 Smart Site Preview
+
+View live screenshots, favicons, category grouping, and structured tech breakdown all in one clean dashboard.
+
+📊 Export-Ready Reports
+
+Download raw JSON or export full reports (PDF coming soon).
+
+🎯 For Developers, Agencies & Marketers
+
+Perfect for competitive analysis, client audits, market research, and technical reviews.
+
+How it Works Section
+
+Enter any website URL
+
+Our engine analyzes the stack
+
+View categorized results, icons, AI insights
+
+Compare, export, and continue exploring
+
+Call to Action
+
+Start scanning for free — no signup needed.
+
+⭐ NEW HOMEPAGE UI DESIGN
+
+This matches:
+
+your card style
+
+shadow + borders
+
+spacing you now use in scan pages
+
+modern SaaS layout
+
+consistent tone across pages
+
+I will now deliver a clean, fully redesigned homepage compatible with your existing Next.js layout.
+
+⭐ UPDATED HOMEPAGE CODE (app/page.js)
+
+Copy/paste this entire file:
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+
+      {/* HERO SECTION */}
+      <section className="pt-20 pb-32 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-slate-900">
+          Find What Powers Any Website — <span className="text-blue-600">Instantly</span>.
+        </h1>
+
+        <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10">
+          TrueTechFinder reveals full technology stacks with AI insights, rich categorization, 
+          live previews, and side-by-side comparisons — all in seconds.
+        </p>
+
+        <div className="flex justify-center gap-4">
+          <a
+            href="/scan"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg text-lg hover:bg-blue-700 transition"
+          >
+            Scan a Website
+          </a>
+
+          <a
+            href="/compare"
+            className="px-6 py-3 bg-white border text-lg rounded-lg hover:shadow-sm transition"
+          >
+            Compare Websites
+          </a>
+        </div>
+      </section>
+
+      {/* FEATURES SECTION */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-center mb-16">Why TrueTechFinder?</h2>
+
+        <div className="grid md:grid-cols-3 gap-10">
+
+          <div className="bg-white border rounded-xl p-6 shadow-sm">
+            <div className="text-4xl mb-4">🔍</div>
+            <h3 className="text-xl font-semibold mb-2">AI-Enhanced Detection</h3>
+            <p className="text-slate-600">
+              Automatically categorize tech stacks with AI-driven insights — frontend, backend, CMS,
+              hosting, analytics, and more.
+            </p>
+          </div>
+
+          <div className="bg-white border rounded-xl p-6 shadow-sm">
+            <div className="text-4xl mb-4">⚡</div>
+            <h3 className="text-xl font-semibold mb-2">Side-By-Side Comparisons</h3>
+            <p className="text-slate-600">
+              Compare any two websites and discover shared and unique technologies with similarity scoring.
+            </p>
+          </div>
+
+          <div className="bg-white border rounded-xl p-6 shadow-sm">
+            <div className="text-4xl mb-4">📸</div>
+            <h3 className="text-xl font-semibold mb-2">Smart Site Preview</h3>
+            <p className="text-slate-600">
+              Get instant screenshots, favicons, and structured breakdowns in a clean, modern dashboard.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="bg-white py-20 border-t">
+        <h2 className="text-3xl font-bold text-center mb-10">How It Works</h2>
+
+        <div className="max-w-4xl mx-auto grid md:grid-cols-4 gap-6 text-center px-6">
+
+          <div>
+            <div className="text-3xl mb-2">1️⃣</div>
+            <h4 className="font-semibold">Enter a URL</h4>
+          </div>
+
+          <div>
+            <div className="text-3xl mb-2">2️⃣</div>
+            <h4 className="font-semibold">We Analyze</h4>
+          </div>
+
+          <div>
+            <div className="text-3xl mb-2">3️⃣</div>
+            <h4 className="font-semibold">AI Insights & Categories</h4>
+          </div>
+
+          <div>
+            <div className="text-3xl mb-2">4️⃣</div>
+            <h4 className="font-semibold">Compare & Export</h4>
+          </div>
+
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="py-20 text-center">
+        <h2 className="text-3xl font-bold mb-4">Start Scanning in Seconds</h2>
+        <p className="text-slate-600 mb-8">
+          No sign-up required. No limits during beta.
+        </p>
+
+        <a
+          href="/scan"
+          className="px-8 py-3 bg-blue-600 text-white rounded-lg text-lg hover:bg-blue-700 transition"
+        >
+          Scan a Website
+        </a>
+      </section>
+
+    </div>
+  );
+}
+
+⭐ WHAT THIS NEW HOMEPAGE FIXES
+✔ It now visually matches your premium scan & compare pages
+✔ Strong SaaS-style copy improves credibility
+✔ Clear CTAs increase conversions
+✔ Better spacing, layout, and structure
+✔ Modern design that feels like:
+
+Wappalyzer
+
+BuiltWith
+
+SimilarWeb
+
+Scanlike
+
+✔ Fully mobile-responsive
+✔ Much more polished & professional
