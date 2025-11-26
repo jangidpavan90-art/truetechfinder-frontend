@@ -9,6 +9,7 @@ import AIInsights from "@/components/AIInsights";
 import CollapsibleJSON from "@/components/CollapsibleJSON";
 import CompareWith from "@/components/CompareWith";
 import ScanAnother from "@/components/ScanAnother";
+import ScanSkeleton from "@/components/skeletons/ScanSkeleton";
 
 import { categorizeTechnologies, normalizeTechList } from "@/lib/categorize";
 
@@ -59,15 +60,7 @@ function ScanContent() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-4"></div>
-          <p className="text-lg">Scanning technologies...</p>
-          <p className="text-slate-500 mt-2">{url}</p>
-        </div>
-      </div>
-    );
+    return <ScanSkeleton />;
   }
 
   if (error) {

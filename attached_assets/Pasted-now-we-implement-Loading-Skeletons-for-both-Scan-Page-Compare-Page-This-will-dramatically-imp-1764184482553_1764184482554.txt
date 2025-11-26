@@ -1,0 +1,188 @@
+now we implement Loading Skeletons for both:
+
+✅ Scan Page
+✅ Compare Page
+
+This will dramatically improve perceived speed and give your product a polished SaaS feel.
+We’ll create:
+
+Skeleton cards for categories
+
+Skeleton header
+
+Skeleton AI insights box
+
+Skeleton JSON box
+
+Skeleton “next actions” section
+
+All structured to match your premium layout.
+
+⭐ STEP 1 — Create Skeleton Components
+
+We’ll create a dedicated folder for skeletons:
+
+👉 Create folder: components/skeletons
+
+Inside it, create these 3 skeleton components:
+
+1) SkeletonBlock.js
+
+(A basic gray animated block used everywhere)
+
+// components/skeletons/SkeletonBlock.js
+export default function SkeletonBlock({ className = "" }) {
+  return (
+    <div className={`animate-pulse bg-gray-200 rounded-md ${className}`} />
+  );
+}
+
+2) ScanSkeleton.js
+
+(Full-page skeleton for /scan)
+
+// components/skeletons/ScanSkeleton.js
+
+import SkeletonBlock from "./SkeletonBlock";
+
+export default function ScanSkeleton() {
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+
+      {/* Summary header */}
+      <SkeletonBlock className="h-12 w-2/3 mx-auto" />
+
+      {/* Tech counts */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm flex justify-center gap-10">
+        <SkeletonBlock className="h-10 w-20" />
+        <SkeletonBlock className="h-10 w-20" />
+      </div>
+
+      {/* AI insights */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm">
+        <SkeletonBlock className="h-6 w-40 mb-4" />
+        <SkeletonBlock className="h-4 w-full mb-2" />
+        <SkeletonBlock className="h-4 w-5/6" />
+      </div>
+
+      {/* Category cards */}
+      <div className="flex flex-col gap-8">
+        {[1, 2, 3, 4, 5].map((_, i) => (
+          <div key={i} className="bg-white border rounded-xl p-6 shadow-sm">
+            <SkeletonBlock className="h-6 w-32 mb-4" />
+            <div className="flex gap-2 flex-wrap">
+              {[1,2,3,4,5].map((x) => (
+                <SkeletonBlock key={x} className="h-7 w-28" />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* JSON */}
+      <SkeletonBlock className="h-10 w-48 mt-10" />
+
+    </div>
+  );
+}
+
+3) CompareSkeleton.js
+
+(Used for compare page)
+
+// components/skeletons/CompareSkeleton.js
+
+import SkeletonBlock from "./SkeletonBlock";
+
+export default function CompareSkeleton() {
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+
+      {/* Page title */}
+      <SkeletonBlock className="h-10 w-2/3 mx-auto" />
+
+      {/* Summary counts */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm flex justify-center gap-10">
+        <SkeletonBlock className="h-10 w-20" />
+        <SkeletonBlock className="h-10 w-20" />
+        <SkeletonBlock className="h-10 w-20" />
+      </div>
+
+      {/* Similarity bar */}
+      <SkeletonBlock className="h-4 w-full" />
+
+      {/* Category cards */}
+      <div className="flex flex-col gap-8">
+        {[1, 2, 3].map((_, i) => (
+          <div key={i} className="bg-white border rounded-xl p-6 shadow-sm">
+            <SkeletonBlock className="h-6 w-32 mb-4" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <SkeletonBlock className="h-24" />
+              <SkeletonBlock className="h-24" />
+              <SkeletonBlock className="h-24" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
+⭐ STEP 2 — Integrate Skeletons into Scan Page
+
+Open app/scan/page.js.
+
+Add import:
+
+import ScanSkeleton from "@/components/skeletons/ScanSkeleton";
+
+
+Then replace your loading state:
+
+if (loading) {
+  return <div className="p-10 text-center">Scanning {url}…</div>;
+}
+
+
+with:
+
+if (loading) {
+  return <ScanSkeleton />;
+}
+
+⭐ STEP 3 — Integrate Skeletons into Compare Page
+
+Open app/compare/page.js.
+
+Add import:
+
+import CompareSkeleton from "@/components/skeletons/CompareSkeleton";
+
+
+Replace the loading part:
+
+if (loading) {
+  return <div className="p-10 text-center">Comparing sites…</div>;
+}
+
+
+with:
+
+if (loading) {
+  return <CompareSkeleton />;
+}
+
+⭐ STEP 4 — Test
+
+Go to /scan?url=anything.com
+
+You should see a beautiful animated skeleton that matches your final UI
+
+When the scan finishes, results fade in
+
+Go to /compare?a=...&b=...
+
+Skeleton should show before results load
+
+This is a major visual upgrade.

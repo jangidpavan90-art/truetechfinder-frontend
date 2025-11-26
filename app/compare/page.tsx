@@ -5,6 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import CompareCategoryCard from "@/components/CompareCategoryCard";
 import SimilarityBar from "@/components/SimilarityBar";
 import CollapsibleJSON from "@/components/CollapsibleJSON";
+import CompareSkeleton from "@/components/skeletons/CompareSkeleton";
 import { normalizeTechList, categorizeTechnologies, categorizeTech } from "@/lib/categorize";
 import { generateComparisonInsights } from "@/lib/compareInsights";
 
@@ -63,17 +64,7 @@ function CompareContent() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-4"></div>
-          <p className="text-lg">Analyzing technology stacks...</p>
-          <p className="text-slate-500 mt-2">
-            <span className="text-blue-600">{formatUrl(url1)}</span> vs <span className="text-purple-600">{formatUrl(url2)}</span>
-          </p>
-        </div>
-      </div>
-    );
+    return <CompareSkeleton />;
   }
 
   if (error) {
