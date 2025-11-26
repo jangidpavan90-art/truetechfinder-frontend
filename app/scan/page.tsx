@@ -8,6 +8,7 @@ import TechCategoryCard from "@/components/TechCategoryCard";
 import AIInsights from "@/components/AIInsights";
 import CollapsibleJSON from "@/components/CollapsibleJSON";
 import CompareWith from "@/components/CompareWith";
+import ScanAnother from "@/components/ScanAnother";
 
 import { categorizeTechnologies, normalizeTechList } from "@/lib/categorize";
 
@@ -142,8 +143,6 @@ function ScanContent() {
 
       <AIInsights insights={aiText} />
 
-      <CompareWith currentUrl={url} />
-
       <h2 className="text-2xl font-bold mb-6 mt-10">Detected Technologies</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -171,13 +170,13 @@ function ScanContent() {
         })()}-scan.json`} 
       />
 
-      <div className="mt-10 text-center">
-        <a 
-          href="/" 
-          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-        >
-          Scan Another Site
-        </a>
+      <div className="mt-12 border-t pt-10">
+        <h3 className="text-xl font-semibold text-center mb-8 text-slate-700">What would you like to do next?</h3>
+        
+        <div className="flex flex-col gap-6">
+          <CompareWith currentUrl={url} />
+          <ScanAnother />
+        </div>
       </div>
 
     </div>

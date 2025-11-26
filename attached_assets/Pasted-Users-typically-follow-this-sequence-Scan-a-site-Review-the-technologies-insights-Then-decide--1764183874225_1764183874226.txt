@@ -1,0 +1,138 @@
+Users typically follow this sequence:
+
+Scan a site
+
+Review the technologies + insights
+
+Then decide what to do next:
+
+Compare with another site, or
+
+Scan a different site
+
+Putting both actions together, at the bottom, is exactly how professional tools like BuiltWith, Wappalyzer, SimilarWeb structure their flows.
+
+So we should move:
+
+“Compare With Another Website” → to the bottom of the page, right above or next to the
+
+“Scan Another Website” button.
+
+Let’s do it cleanly.
+
+⭐ Updated Placement Strategy
+
+Your scan page will now end like this:
+
+Category cards
+
+Collapsible JSON
+
+Divider
+
+Compare With Another Website
+
+Scan Another Website
+
+Footer
+
+This creates a beautiful UX zone for “Next Steps.”
+
+⭐ Step 1 — Add a “Scan Another Website” button
+
+You probably don’t have this button yet, so let’s add it at the bottom.
+
+Add this new component (if not already present):
+
+👉 Create components/ScanAnother.js
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function ScanAnother() {
+  const router = useRouter();
+
+  return (
+    <div className="text-center mt-10">
+      <button
+        onClick={() => router.push("/")}
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+      >
+        Scan Another Website
+      </button>
+    </div>
+  );
+}
+
+⭐ Step 2 — Update Scan Page to move “Compare With…” to bottom
+
+Open:
+
+app/scan/page.js
+
+Find the existing placement:
+
+{/* COMPARE WITH ANOTHER SITE */}
+<CompareWith currentUrl={url} />
+
+
+❌ Remove it from its current position.
+
+Now scroll to the bottom of the JSX, right after:
+
+<CollapsibleJSON ... />
+
+
+Add:
+
+{/* NEXT ACTIONS */}
+<div className="mt-12 flex flex-col gap-8">
+  
+  {/* Compare with another site */}
+  <CompareWith currentUrl={url} />
+
+  {/* Scan another site */}
+  <ScanAnother />
+</div>
+
+
+Also add imports at the top:
+
+import CompareWith from "@/components/CompareWith";
+import ScanAnother from "@/components/ScanAnother";
+
+⭐ The page flow now becomes:
+1. Summary
+2. Tech counts
+3. AI insights
+4. Category cards
+5. Collapsible JSON
+6. ⭐ Compare With Another Website
+7. ⭐ Scan Another Website
+
+This is the best UX flow for a SaaS scanner.
+
+⭐ Step 3 — Test
+
+Save everything
+
+Run Replit
+
+Visit:
+
+/scan?url=https://wikipedia.org
+
+
+Scroll down — you should see:
+
+Compare With Another Website
+Scan Another Website
+
+
+Just like premium tools.
+
+⭐ Ready for Next Step
+
+If this is working as expected, reply:
+
+👉 “Placement updated — proceed with Loading Skeletons.”
