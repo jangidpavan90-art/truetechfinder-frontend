@@ -86,20 +86,33 @@ function ScanContent() {
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!url) return;
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
+    if (!apiBase) {
+      setError("API endpoint not configured. Please set NEXT_PUBLIC_API_BASE.");
+      setLoading(false);
+      return;
+    }
+
     fetch(`${apiBase}/scan?url=${encodeURIComponent(url)}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`API returned ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then((result) => {
         setData(result);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Scan error:", err);
+        setError(err.message || "Failed to connect to scan API");
         setLoading(false);
       });
   }, [url]);
@@ -111,7 +124,27 @@ function ScanContent() {
   }
 
   if (loading) {
-    return <div className="p-10 text-center">Scanning <b>{url}</b>...</div>;
+    return (
+      <div className="p-10 text-center">
+        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent mb-4"></div>
+        <p>Scanning <b>{url}</b>...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-10 text-center">
+        <div className="text-red-500 mb-4">Scan Error</div>
+        <p className="text-gray-600 mb-4">{error}</p>
+        <p className="text-sm text-gray-500">
+          The backend scanner API may not be running. Please ensure your FastAPI backend is active.
+        </p>
+        <a href="/" className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg">
+          Try Again
+        </a>
+      </div>
+    );
   }
 
   if (!data) {
