@@ -1,0 +1,295 @@
+since the Compare UI is working, now we will upgrade it into a full professional-grade competitor analysis engine.
+
+We will complete all four items:
+
+⭐ 1. Improve category mapping (using your real categorizeTechnologies)
+⭐ 2. Add similarity score (0–100%)
+⭐ 3. Add visual bars
+⭐ 4. Add AI comparison summary (“how similar are these websites?”)
+
+Everything will fit cleanly into your existing compare page with structured, copy-paste-ready code.
+
+⭐ STEP 1 — Improve Category Mapping
+
+You already built categorizeTechnologies() in your scan page.
+
+We now move that into a shared utility file, so both /scan and /compare can use it.
+
+👉 Create file: lib/categorize.js
+
+Paste this:
+
+// lib/categorize.js
+
+// Normalize inputs
+export const normalizeTechList = (techData) => {
+  if (!techData) return [];
+
+  if (Array.isArray(techData)) return techData;
+
+  if (typeof techData === "string")
+    return techData.split(",").map(t => t.trim()).filter(Boolean);
+
+  if (typeof techData === "object")
+    return Object.values(techData).map(String);
+
+  return [];
+};
+
+// Categorize technologies into meaningful groups
+export const categorizeTechnologies = (list = []) => {
+  const techs = normalizeTechList(list);
+
+  const categories = {
+    Frontend: [],
+    Backend: [],
+    CMS: [],
+    Hosting: [],
+    CDN: [],
+    Analytics: [],
+    Marketing: [],
+    Security: [],
+    Payments: [],
+    Other: [],
+  };
+
+  techs.forEach((tech) => {
+    const t = tech.toLowerCase();
+
+    if (t.includes("react") || t.includes("vue") || t.includes("angular") || t.includes("next") || t.includes("jquery"))
+      categories.Frontend.push(tech);
+
+    else if (t.includes("node") || t.includes("python") || t.includes("php") || t.includes("ruby") || t.includes("java"))
+      categories.Backend.push(tech);
+
+    else if (t.includes("wordpress") || t.includes("shopify") || t.includes("drupal") || t.includes("wix"))
+      categories.CMS.push(tech);
+
+    else if (t.includes("cloudflare") || t.includes("vercel") || t.includes("aws") || t.includes("azure") || t.includes("netlify"))
+      categories.Hosting.push(tech);
+
+    else if (t.includes("cdn"))
+      categories.CDN.push(tech);
+
+    else if (t.includes("analytics") || t.includes("tag manager") || t.includes("ga4"))
+      categories.Analytics.push(tech);
+
+    else if (t.includes("ads") || t.includes("pixel") || t.includes("marketing"))
+      categories.Marketing.push(tech);
+
+    else if (t.includes("ssl") || t.includes("security") || t.includes("captcha") || t.includes("auth"))
+      categories.Security.push(tech);
+
+    else if (t.includes("stripe") || t.includes("paypal") || t.includes("checkout") || t.includes("payment"))
+      categories.Payments.push(tech);
+
+    else
+      categories.Other.push(tech);
+  });
+
+  return categories;
+};
+
+⭐ STEP 2 — Add Similarity Score (0–100%)
+
+We calculate similarity based on:
+
+Shared technologies
+
+Unique technologies
+
+Total technologies
+
+The formula:
+
+similarity = (sharedTechCount / totalUniqueTechCount) * 100
+
+
+Rounded to whole numbers.
+
+⭐ STEP 3 — Add Visual Bars
+
+A nice progress bar will show similarity visually.
+
+Add this helper component:
+
+👉 Create file: components/SimilarityBar.js
+export default function SimilarityBar({ score }) {
+  return (
+    <div className="mt-4">
+      <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+        <div
+          className="h-4 bg-green-500 transition-all"
+          style={{ width: `${score}%` }}
+        />
+      </div>
+      <div className="mt-2 text-sm text-slate-600 text-center">
+        Similarity Score: <span className="font-bold">{score}%</span>
+      </div>
+    </div>
+  );
+}
+
+⭐ STEP 4 — Add AI Comparison Summary
+
+This will create a natural-language summary:
+
+Example:
+
+“These two websites share 60% of their technologies. Both use Cloudflare and Google Analytics, but only Site A uses WordPress while Site B uses Shopify…”
+
+We will auto-generate this without external AI for now.
+
+👉 Create file: lib/compareInsights.js
+export function generateComparisonInsights(urlA, urlB, shared, aOnly, bOnly, score) {
+  let summary = `Comparing ${urlA} and ${urlB}: `;
+
+  if (score > 70) {
+    summary += "These websites are highly similar in their technology stacks. ";
+  } else if (score > 40) {
+    summary += "These websites share some similarities but also significant differences. ";
+  } else {
+    summary += "These websites have largely different technology stacks. ";
+  }
+
+  if (shared.length > 0) {
+    summary += `Both use ${shared.join(", ")}. `;
+  } else {
+    summary += "They do not appear to use any technologies in common. ";
+  }
+
+  if (aOnly.length > 0) {
+    summary += `${urlA} uniquely uses ${aOnly.join(", ")}. `;
+  }
+
+  if (bOnly.length > 0) {
+    summary += `${urlB} uniquely uses ${bOnly.join(", ")}. `;
+  }
+
+  summary += `Overall similarity score: ${score}%.`;
+
+  return summary;
+}
+
+⭐ STEP 5 — Update Compare Page
+
+Open:
+
+app/compare/page.js
+
+Replace its content with this fully upgraded version:
+
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import CompareCategoryCard from "@/components/CompareCategoryCard";
+import SimilarityBar from "@/components/SimilarityBar";
+import { categorizeTechnologies } from "@/lib/categorize";
+import { generateComparisonInsights } from "@/lib/compareInsights";
+
+export default function ComparePage() {
+  const params = useSearchParams();
+  const urlA = params.get("a");
+  const urlB = params.get("b");
+
+  const [dataA, setDataA] = useState(null);
+  const [dataB, setDataB] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+
+  useEffect(() => {
+    if (!urlA || !urlB) return;
+
+    Promise.all([
+      fetch(`${apiBase}/scan?url=${encodeURIComponent(urlA)}`).then(res => res.json()),
+      fetch(`${apiBase}/scan?url=${encodeURIComponent(urlB)}`).then(res => res.json())
+    ]).then(([a, b]) => {
+      setDataA(a);
+      setDataB(b);
+      setLoading(false);
+    });
+  }, [urlA, urlB]);
+
+  if (!urlA || !urlB) {
+    return <div className="p-10 text-center text-red-500">Missing URLs.</div>;
+  }
+
+  if (loading) {
+    return <div className="p-10 text-center">Comparing sites…</div>;
+  }
+
+  if (!dataA || !dataB) {
+    return <div className="p-10 text-center text-red-600">Comparison data missing.</div>;
+  }
+
+  const techA = dataA.technologies || [];
+  const techB = dataB.technologies || [];
+
+  const shared = techA.filter(t => techB.includes(t));
+  const aOnly = techA.filter(t => !techB.includes(t));
+  const bOnly = techB.filter(t => !techA.includes(t));
+
+  const total = shared.length + aOnly.length + bOnly.length;
+  const score = total === 0 ? 0 : Math.round((shared.length / total) * 100);
+
+  const insights = generateComparisonInsights(urlA, urlB, shared, aOnly, bOnly, score);
+
+  const categoriesA = categorizeTechnologies(techA);
+  const categoriesB = categorizeTechnologies(techB);
+
+  const categoryNames = Object.keys(categoriesA);
+
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-10">
+
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        Compare Technologies  
+      </h1>
+      <h2 className="text-center text-xl mb-8">
+        <span className="text-blue-600">{urlA}</span>  
+        &nbsp;vs&nbsp;  
+        <span className="text-purple-600">{urlB}</span>
+      </h2>
+
+      {/* Summary */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm mb-10 text-center">
+        <div className="flex justify-center gap-10">
+          <div>
+            <div className="text-3xl font-bold text-green-600">{shared.length}</div>
+            <div className="text-slate-600">Shared</div>
+          </div>
+
+          <div>
+            <div className="text-3xl font-bold text-blue-600">{aOnly.length}</div>
+            <div className="text-slate-600">A Only</div>
+          </div>
+
+          <div>
+            <div className="text-3xl font-bold text-purple-600">{bOnly.length}</div>
+            <div className="text-slate-600">B Only</div>
+          </div>
+        </div>
+
+        <SimilarityBar score={score} />
+
+        <p className="text-slate-700 mt-4">{insights}</p>
+      </div>
+
+      {/* Per-category comparison */}
+      <div className="flex flex-col gap-8">
+        {categoryNames.map(cat => (
+          <CompareCategoryCard
+            key={cat}
+            title={cat}
+            shared={categoriesA[cat].filter(t => categoriesB[cat].includes(t))}
+            aOnly={categoriesA[cat].filter(t => !categoriesB[cat].includes(t))}
+            bOnly={categoriesB[cat].filter(t => !categoriesA[cat].includes(t))}
+          />
+        ))}
+      </div>
+
+    </div>
+  );
+}

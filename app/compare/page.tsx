@@ -3,47 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import CompareCategoryCard from "@/components/CompareCategoryCard";
-
-const normalizeTechList = (techData: unknown): string[] => {
-  if (!techData) return [];
-  if (Array.isArray(techData)) return techData.map(String);
-  if (typeof techData === "string") return techData.split(",").map((t) => t.trim()).filter(Boolean);
-  if (typeof techData === "object") return Object.values(techData as Record<string, unknown>).map(String);
-  return [];
-};
-
-const categorizeTech = (tech: string): string => {
-  const t = tech.toLowerCase();
-  
-  if (t.includes("react") || t.includes("vue") || t.includes("angular") || t.includes("tailwind") || t.includes("bootstrap") || t.includes("jquery") || t.includes("next") || t.includes("nuxt") || t.includes("svelte")) {
-    return "Frontend";
-  }
-  if (t.includes("node") || t.includes("python") || t.includes("php") || t.includes("ruby") || t.includes("java") || t.includes("express") || t.includes("django") || t.includes("laravel") || t.includes("rails")) {
-    return "Backend";
-  }
-  if (t.includes("wordpress") || t.includes("shopify") || t.includes("drupal") || t.includes("wix") || t.includes("squarespace") || t.includes("webflow") || t.includes("ghost") || t.includes("joomla")) {
-    return "CMS";
-  }
-  if (t.includes("cloudflare") || t.includes("vercel") || t.includes("aws") || t.includes("azure") || t.includes("netlify") || t.includes("heroku") || t.includes("digitalocean") || t.includes("google cloud") || t.includes("linode")) {
-    return "Hosting";
-  }
-  if (t.includes("cdn") || t.includes("fastly") || t.includes("akamai") || t.includes("cloudfront")) {
-    return "CDN";
-  }
-  if (t.includes("analytics") || t.includes("google tag") || t.includes("gtm") || t.includes("tag manager") || t.includes("hotjar") || t.includes("mixpanel") || t.includes("segment") || t.includes("plausible") || t.includes("heap")) {
-    return "Analytics";
-  }
-  if (t.includes("pixel") || t.includes("ads") || t.includes("facebook") || t.includes("hubspot") || t.includes("mailchimp") || t.includes("intercom") || t.includes("drift") || t.includes("marketo")) {
-    return "Marketing";
-  }
-  if (t.includes("ssl") || t.includes("security") || t.includes("recaptcha") || t.includes("hcaptcha") || t.includes("captcha") || t.includes("auth0") || t.includes("okta") || t.includes("cloudflare")) {
-    return "Security";
-  }
-  if (t.includes("stripe") || t.includes("paypal") || t.includes("square") || t.includes("braintree") || t.includes("checkout") || t.includes("shopify pay")) {
-    return "Payments";
-  }
-  return "Other";
-};
+import SimilarityBar from "@/components/SimilarityBar";
+import { normalizeTechList, categorizeTechnologies, categorizeTech } from "@/lib/categorize";
+import { generateComparisonInsights } from "@/lib/compareInsights";
 
 function CompareContent() {
   const params = useSearchParams();
@@ -104,9 +66,9 @@ function CompareContent() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-4"></div>
-          <p className="text-lg">Comparing technologies...</p>
+          <p className="text-lg">Analyzing technology stacks...</p>
           <p className="text-slate-500 mt-2">
-            <span className="text-blue-600">{url1}</span> vs <span className="text-purple-600">{url2}</span>
+            <span className="text-blue-600">{formatUrl(url1)}</span> vs <span className="text-purple-600">{formatUrl(url2)}</span>
           </p>
         </div>
       </div>
@@ -143,22 +105,28 @@ function CompareContent() {
   const aOnly = techA.filter(t => !techBLower.includes(t.toLowerCase()));
   const bOnly = techB.filter(t => !techALower.includes(t.toLowerCase()));
 
-  const categories = ["Frontend", "Backend", "CMS", "Hosting", "CDN", "Analytics", "Marketing", "Security", "Payments", "Other"];
+  const total = shared.length + aOnly.length + bOnly.length;
+  const score = total === 0 ? 0 : Math.round((shared.length / total) * 100);
 
-  const getCategoryData = (category: string) => {
+  const insights = generateComparisonInsights(url1, url2, shared, aOnly, bOnly, score);
+
+  const categoriesA = categorizeTechnologies(techA);
+  const categoriesB = categorizeTechnologies(techB);
+
+  const categoryNames = ["Frontend", "Backend", "CMS", "Hosting", "CDN", "Analytics", "Marketing", "Security", "Payments", "Other"];
+
+  const getCategoryComparison = (category: string) => {
+    const catA = categoriesA[category] || [];
+    const catB = categoriesB[category] || [];
+    
+    const catALower = catA.map((t: string) => t.toLowerCase());
+    const catBLower = catB.map((t: string) => t.toLowerCase());
+    
     return {
-      shared: shared.filter(t => categorizeTech(t) === category),
-      aOnly: aOnly.filter(t => categorizeTech(t) === category),
-      bOnly: bOnly.filter(t => categorizeTech(t) === category),
+      shared: catA.filter((t: string) => catBLower.includes(t.toLowerCase())),
+      aOnly: catA.filter((t: string) => !catBLower.includes(t.toLowerCase())),
+      bOnly: catB.filter((t: string) => !catALower.includes(t.toLowerCase())),
     };
-  };
-
-  const formatUrl = (url: string) => {
-    try {
-      return new URL(url.startsWith("http") ? url : `https://${url}`).hostname;
-    } catch {
-      return url;
-    }
   };
 
   return (
@@ -173,7 +141,7 @@ function CompareContent() {
       </p>
 
       <div className="bg-white border rounded-xl p-6 shadow-sm mb-10">
-        <div className="flex justify-center gap-8 md:gap-16 text-center">
+        <div className="flex justify-center gap-8 md:gap-16 text-center mb-6">
           <div>
             <div className="text-4xl font-bold text-green-600">{shared.length}</div>
             <div className="text-slate-600 mt-1">Shared</div>
@@ -188,10 +156,17 @@ function CompareContent() {
             <div className="text-4xl font-bold text-purple-600">{bOnly.length}</div>
             <div className="text-slate-600 mt-1">Only {formatUrl(url2)}</div>
           </div>
-          <div className="border-l border-gray-200"></div>
-          <div>
-            <div className="text-4xl font-bold text-slate-700">{techA.length + techB.length - shared.length}</div>
-            <div className="text-slate-600 mt-1">Total Unique</div>
+        </div>
+
+        <SimilarityBar score={score} />
+
+        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+          <div className="flex items-start gap-2">
+            <span className="text-blue-600 text-xl">⚡</span>
+            <div>
+              <h4 className="font-semibold text-slate-800 mb-1">AI Analysis</h4>
+              <p className="text-slate-700 leading-relaxed">{insights}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -214,8 +189,11 @@ function CompareContent() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {categories.map(cat => {
-          const data = getCategoryData(cat);
+        {categoryNames.map(cat => {
+          const data = getCategoryComparison(cat);
+          if (data.shared.length === 0 && data.aOnly.length === 0 && data.bOnly.length === 0) {
+            return null;
+          }
           return (
             <CompareCategoryCard
               key={cat}
@@ -238,6 +216,14 @@ function CompareContent() {
       </div>
     </div>
   );
+}
+
+function formatUrl(url: string): string {
+  try {
+    return new URL(url.startsWith("http") ? url : `https://${url}`).hostname;
+  } catch {
+    return url;
+  }
 }
 
 export default function ComparePage() {
