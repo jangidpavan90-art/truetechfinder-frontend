@@ -1,0 +1,191 @@
+We will now upgrade the single scan results page to the same premium SaaS quality as the Compare Page:
+
+Clean white cards
+
+Icons
+
+Category grouping
+
+Improved layout
+
+Summary panel
+
+AI insights
+
+Consistent spacing
+
+Better readability
+
+More professional look
+
+By the end of this upgrade, your single scan output will look as polished as BuiltWith Pro.
+
+⭐ STEP 1 — Update the Single Scan Page UI
+
+We will replace your entire app/scan/page.js (or .tsx) with a fully upgraded, premium layout.
+
+👉 Open:
+app/scan/page.js
+
+Replace everything with this:
+
+⭐ FULL UPGRADED SINGLE SCAN PAGE CODE
+/app/scan/page.js
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import ResultsSummary from "@/components/ResultsSummary";
+import TechCategoryCard from "@/components/TechCategoryCard";
+import AIInsights from "@/components/AIInsights";
+
+import { categorizeTechnologies } from "@/lib/categorize";
+
+export default function ScanPage() {
+  const params = useSearchParams();
+  const url = params.get("url");
+
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+
+  useEffect(() => {
+    if (!url) return;
+
+    fetch(`${apiBase}/scan?url=${encodeURIComponent(url)}`)
+      .then((res) => res.json())
+      .then((result) => {
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Scan error:", err);
+        setLoading(false);
+      });
+  }, [url]);
+
+  if (!url) {
+    return <div className="p-10 text-center text-red-500">No URL provided.</div>;
+  }
+
+  if (loading) {
+    return (
+      <div className="p-10 text-center">
+        Scanning <b>{url}</b>…
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="p-10 text-center text-red-500">
+        No data found for this scan.
+      </div>
+    );
+  }
+
+  // Extract technologies & categorize them
+  const techList = data.technologies || [];
+  const categories = categorizeTechnologies(techList);
+
+  // Category order (consistent with Compare page)
+  const categoryOrder = [
+    "Frontend",
+    "Backend",
+    "CMS",
+    "Hosting",
+    "CDN",
+    "Analytics",
+    "Marketing",
+    "Security",
+    "Payments",
+    "Other",
+  ];
+
+  // Basic counts
+  const totalTech = techList.length;
+
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-10">
+
+      {/* SITE SUMMARY */}
+      <ResultsSummary url={url} />
+
+      {/* TECH SUMMARY NUMBERS */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm mb-10 text-center">
+        <div className="flex justify-center gap-10">
+
+          <div>
+            <div className="text-3xl font-bold text-blue-600">{totalTech}</div>
+            <div className="text-slate-600">Technologies Detected</div>
+          </div>
+
+          <div>
+            <div className="text-3xl font-bold text-green-600">
+              {Object.values(categories).filter(a => a.length > 0).length}
+            </div>
+            <div className="text-slate-600">Categories Used</div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* AI INSIGHTS */}
+      <AIInsights insights={data?.ai_insights} />
+
+      {/* DETECTED TECHNOLOGIES */}
+      <h2 className="text-2xl font-bold mb-6 mt-10">Detected Technologies</h2>
+
+      <div className="flex flex-col gap-8">
+        {categoryOrder.map((cat) => (
+          <TechCategoryCard
+            key={cat}
+            title={cat}
+            items={categories[cat] || []}
+          />
+        ))}
+      </div>
+
+      {/* RAW JSON (collapsible coming later) */}
+      <div className="mt-12">
+        <h3 className="text-xl font-semibold mb-2">Raw Data (Debug)</h3>
+        <pre className="bg-gray-100 p-4 rounded-lg overflow-auto text-sm">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      </div>
+
+    </div>
+  );
+}
+
+⭐ WHAT THIS UPGRADE ADDS
+
+You now get a premium single scan layout:
+
+✔ Consistent look & feel with Compare Page
+
+Same card style, spacing, typography, white space.
+
+✔ Premium Tech Summary Section
+
+Total technologies
+
+Total categories
+
+Looks professional
+
+✔ Clean category cards (with icons!)
+
+All categories rendered in a consistent order.
+
+✔ AI Insights section polished
+
+Now stylized like Compare summary section.
+
+✔ Modern SaaS layout
+
+Beautiful container width, spacing, hierarchy.
+
+Your scan page now looks like a real SaaS dashboard, not an MVP.
