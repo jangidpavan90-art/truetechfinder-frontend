@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ResultsSummary from "@/components/ResultsSummary";
 import TechCategoryCard from "@/components/TechCategoryCard";
+import AIInsights from "@/components/AIInsights";
 
 const normalizeTechList = (techData: unknown): string[] => {
   if (!techData) return [];
@@ -152,12 +153,24 @@ function ScanContent() {
   }
 
   const categories = categorizeTechnologies(data?.technologies);
+  const techList = normalizeTechList(data?.technologies);
+
+  const fallbackInsights = (): string | null => {
+    if (!techList.length) return null;
+    const techs = techList.slice(0, 8).join(", ");
+    const more = techList.length > 8 ? ` and ${techList.length - 8} more` : "";
+    return `This website is built using: ${techs}${more}. It follows modern web development practices with a mix of frontend frameworks, backend services, and third-party integrations. The technology stack suggests a focus on performance and scalability.`;
+  };
+
+  const aiText = data?.ai_insights || fallbackInsights();
 
   return (
     <div className="min-h-screen px-6 py-10 max-w-5xl mx-auto">
       <ResultsSummary url={url} />
 
-      <h2 className="text-2xl font-bold mb-6">Detected Technologies</h2>
+      <AIInsights insights={aiText} />
+
+      <h2 className="text-2xl font-bold mb-6 mt-10">Detected Technologies</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
         {Object.entries(categories).map(([categoryName, techList]) => (
