@@ -6,6 +6,7 @@ import { useEffect, useState, Suspense } from "react";
 import ResultsSummary from "@/components/ResultsSummary";
 import TechCategoryCard from "@/components/TechCategoryCard";
 import AIInsights from "@/components/AIInsights";
+import CollapsibleJSON from "@/components/CollapsibleJSON";
 
 import { categorizeTechnologies, normalizeTechList } from "@/lib/categorize";
 
@@ -156,17 +157,16 @@ function ScanContent() {
         })}
       </div>
 
-      <div className="mt-12">
-        <details className="group">
-          <summary className="cursor-pointer text-xl font-semibold mb-2 flex items-center gap-2">
-            <span className="text-slate-400 group-open:rotate-90 transition-transform">▶</span>
-            Raw Data (Debug)
-          </summary>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-auto text-sm mt-4">
-            {JSON.stringify(data, null, 2)}
-          </pre>
-        </details>
-      </div>
+      <CollapsibleJSON 
+        data={data} 
+        filename={`${(() => {
+          try {
+            return new URL(url.startsWith("http") ? url : `https://${url}`).hostname;
+          } catch {
+            return "scan-result";
+          }
+        })()}-scan.json`} 
+      />
 
       <div className="mt-10 text-center">
         <a 

@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import CompareCategoryCard from "@/components/CompareCategoryCard";
 import SimilarityBar from "@/components/SimilarityBar";
+import CollapsibleJSON from "@/components/CollapsibleJSON";
 import { normalizeTechList, categorizeTechnologies, categorizeTech } from "@/lib/categorize";
 import { generateComparisonInsights } from "@/lib/compareInsights";
 
@@ -204,6 +205,17 @@ function CompareContent() {
             />
           );
         })}
+      </div>
+
+      <div className="mt-12 grid md:grid-cols-2 gap-6">
+        <div>
+          <h4 className="text-lg font-semibold mb-2 text-blue-600">Raw Data — {formatUrl(url1)}</h4>
+          <CollapsibleJSON data={result1} filename={`${formatUrl(url1)}-scan.json`} />
+        </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-2 text-purple-600">Raw Data — {formatUrl(url2)}</h4>
+          <CollapsibleJSON data={result2} filename={`${formatUrl(url2)}-scan.json`} />
+        </div>
       </div>
 
       <div className="mt-10 text-center">

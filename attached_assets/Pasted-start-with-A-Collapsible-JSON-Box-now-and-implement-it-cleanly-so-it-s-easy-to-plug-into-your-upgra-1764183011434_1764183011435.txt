@@ -1,0 +1,165 @@
+start with A) Collapsible JSON Box now and implement it cleanly so it’s easy to plug into your upgraded /scan page.
+
+Below are the exact files and edits to make. Copy-paste each file into your Replit project.
+
+1) New component — components/CollapsibleJSON.js
+
+Create this file and paste exactly:
+
+// components/CollapsibleJSON.js
+"use client";
+
+import { useState } from "react";
+
+export default function CollapsibleJSON({ data, filename = "scan-result.json" }) {
+  const [open, setOpen] = useState(false);
+
+  if (!data) return null;
+
+  const jsonText = JSON.stringify(data, null, 2);
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(jsonText);
+      alert("JSON copied to clipboard");
+    } catch (e) {
+      alert("Unable to copy JSON");
+    }
+  };
+
+  const downloadJSON = () => {
+    const blob = new Blob([jsonText], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="mt-8">
+      <div className="flex items-center justify-between gap-4">
+        <button
+          onClick={() => setOpen(!open)}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+        >
+          {open ? "Hide Raw JSON" : "View Raw JSON"}
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d={open ? "M18 15l-6-6-6 6" : "M6 9l6 6 6-6"} stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
+        <div className="flex gap-2">
+          <button
+            onClick={copyToClipboard}
+            className="px-3 py-2 bg-white border rounded-md text-sm hover:shadow-sm"
+          >
+            Copy JSON
+          </button>
+
+          <button
+            onClick={downloadJSON}
+            className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
+          >
+            Download JSON
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto text-sm" style={{ maxHeight: "420px" }}>
+          <pre>{jsonText}</pre>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+What it does
+
+Toggle show/hide raw JSON
+
+Copy JSON to clipboard
+
+Download JSON as .json
+
+Styled to fit your Tailwind theme (dark block for readability)
+
+2) Update the single-scan page to use it
+
+Open your upgraded scan page (app/scan/page.js) and replace the Raw JSON block at the bottom with this:
+
+Replace this part (current):
+
+{/* RAW JSON (collapsible coming later) */}
+<div className="mt-12">
+  <h3 className="text-xl font-semibold mb-2">Raw Data (Debug)</h3>
+  <pre className="bg-gray-100 p-4 rounded-lg overflow-auto text-sm">
+    {JSON.stringify(data, null, 2)}
+  </pre>
+</div>
+
+
+With this (make sure you import the component at top):
+
+import CollapsibleJSON from "@/components/CollapsibleJSON";
+
+/* ... later in JSX ... */
+
+{/* Collapsible JSON */}
+<CollapsibleJSON data={data} filename={`${new URL(url).hostname}-scan.json`} />
+
+
+(If you already imported other components at the top, just add CollapsibleJSON to that import list.)
+
+3) Update Compare page too (optional but recommended)
+
+To keep parity with Compare UI, you can replace raw JSON there as well. In app/compare/page.js, add an import:
+
+import CollapsibleJSON from "@/components/CollapsibleJSON";
+
+
+And at the bottom of that page (after the per-category comparison), add:
+
+{/* Collapsible raw data for both sites */}
+<div className="mt-8 grid md:grid-cols-2 gap-4">
+  <div>
+    <h4 className="mb-2 font-semibold">Raw JSON — Site A</h4>
+    <CollapsibleJSON data={dataA} filename={`siteA-scan.json`} />
+  </div>
+  <div>
+    <h4 className="mb-2 font-semibold">Raw JSON — Site B</h4>
+    <CollapsibleJSON data={dataB} filename={`siteB-scan.json`} />
+  </div>
+</div>
+
+4) Run & Test
+
+Save files.
+
+Stop and Run your Replit (or rebuild your Hostinger export if testing there).
+
+Open a scan result page:
+
+/scan?url=https://wordpress.com
+
+
+At the bottom (or where you placed it), click View Raw JSON → JSON should expand in a dark, scrollable box.
+
+Test Copy JSON and Download JSON buttons.
+
+5) Notes & small improvements you can add later
+
+Replace alert() with inline toasts for better UX (we can add a small Toast component later).
+
+Add syntax highlighting (prismjs) if you want colored JSON.
+
+Add toggle preference to remember "open/closed" via localStorage.
+
+When you've implemented and tested, reply:
+
+👉 “Collapsible JSON working.”
