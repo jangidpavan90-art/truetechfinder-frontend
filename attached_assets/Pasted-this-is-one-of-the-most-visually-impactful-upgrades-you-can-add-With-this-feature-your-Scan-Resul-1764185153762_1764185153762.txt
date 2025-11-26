@@ -1,0 +1,219 @@
+this is one of the most visually impactful upgrades you can add.
+
+With this feature, your Scan Results page will immediately look like:
+
+✔ BuiltWith Pro
+✔ SimilarWeb
+✔ Wappalyzer Enterprise
+
+We’ll add:
+
+Website favicon
+
+Website hostname title
+
+Website live screenshot thumbnail (via free screenshot API)
+
+Polished “Site Preview” card
+
+This will appear at the top of the scan results, right above the summary.
+
+⭐ OVERVIEW OF WHAT WE WILL IMPLEMENT
+1️⃣ Favicon Loader (automatically fetches site icon)
+
+Using Google S2 favicon service:
+
+https://www.google.com/s2/favicons?domain=<domain>&sz=128
+
+
+Works for 95% of domains.
+
+2️⃣ Screenshot Loader
+
+We will use a free screenshot API:
+
+https://image.thum.io/get/fullpage/<URL>
+
+
+Benefits:
+
+No API key
+
+Works instantly
+
+Stable
+
+High-quality screenshot
+
+Used by many SaaS tools
+
+We will lazy-load it and display as a card.
+
+3️⃣ Site Preview Component
+
+A new component:
+
+Favicon
+
+URL
+
+Screenshot (small, rounded)
+
+Clean white card
+
+Looks premium
+
+⭐ STEP 1 — Create Screenshot & Favicon Component
+
+👉 Create file:
+
+components/SitePreview.js
+
+Paste this:
+
+"use client";
+
+import { useEffect, useState } from "react";
+
+export default function SitePreview({ url }) {
+  const [favicon, setFavicon] = useState("");
+  const [screenshot, setScreenshot] = useState("");
+
+  const domain = url.replace("https://", "").replace("http://", "").split("/")[0];
+
+  // Favicon
+  useEffect(() => {
+    const iconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+    setFavicon(iconUrl);
+  }, [domain]);
+
+  // Screenshot (lazy load)
+  useEffect(() => {
+    const imgUrl = `https://image.thum.io/get/width/1200/https://${domain}`;
+    setScreenshot(imgUrl);
+  }, [domain]);
+
+  return (
+    <div className="bg-white border rounded-xl p-6 shadow-sm mb-10">
+      <div className="flex items-center gap-4 mb-6">
+        <img
+          src={favicon}
+          alt="favicon"
+          className="w-10 h-10 rounded-md border"
+        />
+        <div>
+          <h2 className="text-2xl font-semibold">{domain}</h2>
+          <p className="text-slate-500">{url}</p>
+        </div>
+      </div>
+
+      {/* Screenshot */}
+      <div className="rounded-xl overflow-hidden border shadow-sm bg-gray-50 w-full h-[300px] flex items-center justify-center">
+        <img
+          src={screenshot}
+          alt="screenshot"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+⭐ STEP 2 — Add SitePreview to Scan Page
+
+Open:
+
+app/scan/page.js
+
+Add this import:
+
+import SitePreview from "@/components/SitePreview";
+
+
+Then place this directly under your page header, before ResultsSummary:
+
+Find this:
+
+<ResultsSummary url={url} />
+
+
+Insert this above it:
+
+<SitePreview url={url} />
+
+
+Now the top of your scan results looks like:
+
+[ Favicon ]  domain.com
+[screenshot preview]
+
+[Summary]
+[Counts]
+[AI Insights]
+[Categories]
+...
+
+
+Super professional.
+
+⭐ STEP 3 — Update Compare Page (Optional but recommended)
+
+Let’s add mini previews for both sites on the Compare page.
+
+Open:
+
+app/compare/page.js
+
+Add import at the top:
+
+import SitePreview from "@/components/SitePreview";
+
+
+Find the section under the page title.
+
+Add this:
+
+<div className="grid md:grid-cols-2 gap-6 mb-10">
+  <SitePreview url={urlA} />
+  <SitePreview url={urlB} />
+</div>
+
+
+This will show both site previews side-by-side.
+
+⭐ STEP 4 — Test
+
+Go to
+
+/scan?url=https://wikipedia.org
+
+
+You should see:
+
+Wikipedia favicon
+
+Wikipedia screenshot
+
+Clean header
+
+Go to
+
+/compare?a=wikipedia.org&b=github.com
+
+
+You should see two side-by-side previews.
+
+This instantly makes your product feel like a professional SaaS.
+
+⭐ OPTIONAL ENHANCEMENTS (can add later)
+
+If you want even more premium visuals, I can add:
+
+✔ Blurred image placeholder while screenshot loads
+✔ Fade-in animation
+✔ Screenshot reload button
+✔ Toggle between mobile/desktop screenshot
+✔ Full-screen screenshot modal
+✔ Add “Try again if screenshot fails” logic
+
+Just ask.

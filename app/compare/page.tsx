@@ -6,6 +6,7 @@ import CompareCategoryCard from "@/components/CompareCategoryCard";
 import SimilarityBar from "@/components/SimilarityBar";
 import CollapsibleJSON from "@/components/CollapsibleJSON";
 import CompareSkeleton from "@/components/skeletons/CompareSkeleton";
+import SitePreview from "@/components/SitePreview";
 import { normalizeTechList, categorizeTechnologies, categorizeTech } from "@/lib/categorize";
 import { generateComparisonInsights } from "@/lib/compareInsights";
 
@@ -131,6 +132,11 @@ function CompareContent() {
         <span className="mx-3 text-slate-400">vs</span>
         <span className="text-purple-600 font-semibold">{formatUrl(url2)}</span>
       </p>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-10">
+        <SitePreview url={url1} compact accentColor="blue" />
+        <SitePreview url={url2} compact accentColor="purple" />
+      </div>
 
       <div className="bg-white border rounded-xl p-6 shadow-sm mb-10">
         <div className="flex justify-center gap-8 md:gap-16 text-center mb-6">

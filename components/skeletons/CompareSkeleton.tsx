@@ -7,6 +7,18 @@ export default function CompareSkeleton() {
       <SkeletonBlock className="h-10 w-80 mx-auto" />
       <SkeletonBlock className="h-6 w-96 mx-auto" />
 
+      <div className="grid md:grid-cols-2 gap-6">
+        {[1, 2].map((i) => (
+          <div key={i} className="bg-white border rounded-xl p-4 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <SkeletonBlock className="w-8 h-8 rounded-md" />
+              <SkeletonBlock className="h-5 w-32" />
+            </div>
+            <SkeletonBlock className="h-[160px] w-full rounded-lg" />
+          </div>
+        ))}
+      </div>
+
       <div className="bg-white border rounded-xl p-6 shadow-sm">
         <div className="flex justify-center gap-10 mb-6">
           <SkeletonBlock className="h-16 w-20" />

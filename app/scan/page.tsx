@@ -10,6 +10,7 @@ import CollapsibleJSON from "@/components/CollapsibleJSON";
 import CompareWith from "@/components/CompareWith";
 import ScanAnother from "@/components/ScanAnother";
 import ScanSkeleton from "@/components/skeletons/ScanSkeleton";
+import SitePreview from "@/components/SitePreview";
 
 import { categorizeTechnologies, normalizeTechList } from "@/lib/categorize";
 
@@ -113,6 +114,8 @@ function ScanContent() {
 
   return (
     <div className="min-h-screen px-6 py-10 max-w-6xl mx-auto">
+
+      <SitePreview url={url} />
 
       <ResultsSummary url={url} />
 
