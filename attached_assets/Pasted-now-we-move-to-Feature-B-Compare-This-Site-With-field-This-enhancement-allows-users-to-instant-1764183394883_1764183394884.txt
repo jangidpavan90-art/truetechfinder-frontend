@@ -1,0 +1,148 @@
+now we move to Feature B: “Compare This Site With…” field.
+
+This enhancement allows users to instantly compare the scanned website with another domain directly from the scan results page.
+
+It creates a smooth workflow:
+
+Scan → Compare → Insights
+Just like BuiltWith, Wappalyzer Pro, and SimilarTech.
+
+Below is the complete implementation.
+
+⭐ B) ADD “COMPARE THIS SITE WITH…” FIELD
+(Clean UI · Instant compare navigation · No backend changes needed)
+
+This will add:
+
+A text input
+
+A “Compare” button
+
+Auto-navigation to /compare?a=<currentSite>&b=<newSite>
+
+Clean placement under the summary section
+
+⭐ STEP 1 — Create CompareWith component
+
+👉 Create file:
+components/CompareWith.js
+
+Paste this:
+
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function CompareWith({ currentUrl }) {
+  const [otherUrl, setOtherUrl] = useState("");
+  const router = useRouter();
+
+  const handleCompare = () => {
+    if (!otherUrl.trim()) return;
+
+    router.push(
+      `/compare?a=${encodeURIComponent(currentUrl)}&b=${encodeURIComponent(otherUrl)}`
+    );
+  };
+
+  return (
+    <div className="bg-white border rounded-xl p-6 shadow-sm mt-10">
+      <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <span className="text-purple-600">🔗</span>
+        Compare With Another Website
+      </h3>
+
+      <div className="flex flex-col md:flex-row gap-4">
+        <input
+          type="text"
+          placeholder="Enter another URL (e.g. example.com)"
+          value={otherUrl}
+          onChange={(e) => setOtherUrl(e.target.value)}
+          className="flex-1 px-4 py-2 border rounded-lg"
+        />
+
+        <button
+          onClick={handleCompare}
+          className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+        >
+          Compare
+        </button>
+      </div>
+    </div>
+  );
+}
+
+⭐ STEP 2 — Add it to the Scan Page
+
+In your file:
+app/scan/page.js
+
+Add this import at the top:
+
+import CompareWith from "@/components/CompareWith";
+
+
+Then find a clean place after the summary section but before categories, ideally after this block:
+
+{/* TECH SUMMARY NUMBERS */}
+<div className="bg-white border rounded-xl p-6 shadow-sm mb-10 text-center">
+
+
+or after AIInsights.
+
+Add this:
+
+{/* COMPARE WITH ANOTHER SITE */}
+<CompareWith currentUrl={url} />
+
+⭐ The layout will now look like:
+
+Summary
+
+Tech count cards
+
+AI insights
+
+Compare With Another Website (new)
+
+Category cards
+
+JSON collapsible
+
+Perfect flow.
+
+⭐ STEP 3 — Test it
+
+Run Replit (or rebuild your Hostinger static export)
+
+Open:
+
+/scan?url=https://wordpress.com
+
+
+Scroll down to “Compare With Another Website”
+
+Enter a site, e.g.:
+
+wikipedia.org
+
+
+Click Compare
+
+You should instantly navigate to:
+
+/compare?a=https://wordpress.com&b=wikipedia.org
+
+
+And the Compare UI will load.
+
+⭐ BONUS BEHAVIOR
+
+It accepts both domain.com and full URLs
+
+Encodes automatically
+
+Uses Next.js router — no page reload
+
+Very clean and modern SaaS UI

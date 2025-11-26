@@ -7,6 +7,7 @@ import ResultsSummary from "@/components/ResultsSummary";
 import TechCategoryCard from "@/components/TechCategoryCard";
 import AIInsights from "@/components/AIInsights";
 import CollapsibleJSON from "@/components/CollapsibleJSON";
+import CompareWith from "@/components/CompareWith";
 
 import { categorizeTechnologies, normalizeTechList } from "@/lib/categorize";
 
@@ -140,6 +141,8 @@ function ScanContent() {
       </div>
 
       <AIInsights insights={aiText} />
+
+      <CompareWith currentUrl={url} />
 
       <h2 className="text-2xl font-bold mb-6 mt-10">Detected Technologies</h2>
 
