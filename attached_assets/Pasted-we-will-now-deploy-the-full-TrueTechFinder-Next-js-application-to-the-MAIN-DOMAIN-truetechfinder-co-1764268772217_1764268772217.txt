@@ -1,0 +1,125 @@
+we will now deploy the full TrueTechFinder Next.js application to the MAIN DOMAIN (truetechfinder.com) on Hostinger using the proper standalone Node.js method.
+
+I will guide you through everything slowly, clearly, and step-by-step, so you do not get stuck at any stage.
+
+This process works 100% reliably and will finally fix:
+
+Login
+
+Supabase Auth
+
+Compare
+
+Scanning
+
+API calls
+
+Deployment issues
+
+Homepage UI
+
+Screenshot previews
+
+Everything
+
+⭐ PHASE 0 — BEFORE YOU START
+
+You only need two things:
+
+✔ Your Replit project (your current code)
+✔ Your Hostinger hosting plan
+
+That’s it.
+
+I will guide everything else.
+
+⭐ PHASE 1 — Prepare Your Next.js Build (in Replit)
+1️⃣ Confirm your next.config.js
+
+If file is next.config.js, it should look like:
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: "standalone",
+};
+
+module.exports = nextConfig;
+
+
+If file is next.config.mjs, then use:
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: "standalone",
+};
+
+export default nextConfig;
+
+2️⃣ Install dependencies (in Replit shell)
+npm install
+
+3️⃣ Build the standalone Next.js app
+npm run build
+
+
+This will generate:
+
+.next/
+  └── standalone/
+  └── static/
+public/
+
+4️⃣ Create your Hostinger start file
+
+Create:
+
+server.js
+const { createServer } = require("http");
+const next = require("next");
+
+const port = process.env.PORT || 3000;
+const dev = false;
+const dir = "./"; 
+
+const app = next({ dev, dir });
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  createServer((req, res) => handle(req, res)).listen(port, () => {
+    console.log(`TrueTechFinder running on port ${port}`);
+  });
+});
+
+5️⃣ Prepare files for deployment
+
+We will deploy ONLY these:
+
+.next/standalone
+
+.next/static
+
+public/
+
+server.js
+
+package.json
+
+next.config.js or next.config.mjs
+
+Now zip them.
+
+6️⃣ Zip the required files
+
+Run this in Replit shell:
+
+zip -r build.zip .next public server.js package.json next.config.js
+
+
+(if using .mjs)
+
+zip -r build.zip .next public server.js package.json next.config.mjs
+
+
+You will now see a file called build.zip.
+
+Download it.
