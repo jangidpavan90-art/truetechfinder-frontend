@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 36" fill="none">
+  <rect x="0" y="4" width="28" height="28" rx="6" fill="#2563EB"/>
+  <path d="M14 12L10 20H14L12 28L22 18H16L20 12H14Z" fill="white"/>
+  <text x="36" y="26" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#0F172A">TrueTech</text>
+  <text x="142" y="26" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#2563EB">Finder</text>
+</svg>
