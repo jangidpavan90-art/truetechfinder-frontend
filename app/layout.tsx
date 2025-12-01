@@ -27,8 +27,18 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" />
         <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.png" />
         <meta name="theme-color" content="#2563EB" />
-        <Script id="ga-script" strategy="afterInteractive">
-          {``}
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XJFN67W6X5"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XJFN67W6X5');
+          `}
         </Script>
       </head>
       <body className="bg-white text-slate-900">

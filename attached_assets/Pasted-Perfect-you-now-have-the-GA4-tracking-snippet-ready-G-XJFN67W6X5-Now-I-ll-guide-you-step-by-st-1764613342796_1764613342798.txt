@@ -1,0 +1,134 @@
+Perfect — you now have the GA4 tracking snippet ready:
+
+G-XJFN67W6X5
+
+
+Now I’ll guide you step-by-step to integrate this into your Next.js (App Router) site properly, using the official recommended method.
+
+This will ensure:
+
+It loads non-blocking
+
+It works with Vercel
+
+It works with Next.js app directory
+
+It loads only once
+
+It respects performance best practices
+
+Let’s do this cleanly.
+
+⭐ STEP 1 — Add GA4 Using next/script in app/layout.js
+
+Open app/layout.js
+
+Inside <head>, add the async script
+
+Add a second Script tag for the config
+
+Here is the exact code you must insert (replace your empty placeholder):
+
+✅ FINAL, CORRECT GA4 IMPLEMENTATION (copy/paste)
+// app/layout.js
+import "./globals.css";
+import Footer from "@/components/Footer";
+import Script from "next/script";
+
+export const metadata = {
+  title: "TrueTechFinder",
+  description: "Find what powers any website — instantly."
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.png" />
+        <meta name="theme-color" content="#2563EB" />
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XJFN67W6X5"
+          strategy="afterInteractive"
+        />
+
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XJFN67W6X5');
+          `}
+        </Script>
+      </head>
+
+      <body className="bg-white text-slate-900">
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
+}
+
+⭐ STEP 2 — Save + Deploy
+
+If you’re using Replit + GitHub:
+
+git add app/layout.js
+git commit -m "feat: add GA4 tracking (G-XJFN67W6X5)"
+git push
+
+
+Vercel will auto-deploy.
+
+⭐ STEP 3 — Verify GA is working
+
+After deployment:
+
+1. Open your website in a new tab:
+
+https://www.truetechfinder.com
+
+2. In another tab, go to:
+
+Google Analytics → Admin → Property → Data Streams → Web → DebugView
+
+You should see:
+
+Page_view event firing
+
+First_visit event
+
+Session_start event
+
+This confirms GA is tracking correctly.
+
+⭐ STEP 4 — Test in Realtime Report
+
+GA4 → Reports → Realtime
+You should see at least:
+
+1 user (yourself)
+
+A page_view event with path /
+
+⭐ STEP 5 — Enable basic event tracking (automatic)
+
+GA4 automatically tracks:
+
+Page views
+
+Sessions
+
+Scroll events
+
+Outbound link clicks
+
+File downloads
+
+Site search (if implemented)
+
+No extra setup needed.
