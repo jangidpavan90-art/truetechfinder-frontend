@@ -18,7 +18,7 @@ export default function Navbar() {
           <Link href="/scan" className="hover:text-slate-900 transition">Scan</Link>
           <Link href="/compare" className="hover:text-slate-900 transition">Compare</Link>
           <Link href="/pricing" className="hover:text-slate-900 transition">Pricing</Link>
-          <Link href="/blog" className="hover:text-slate-900 transition">Blog</Link>
+          <a href="https://blog.truetechfinder.com" className="hover:text-slate-900 transition">Blog</a>
           <Link href="/about" className="hover:text-slate-900 transition">About</Link>
         </nav>
 
@@ -43,7 +43,7 @@ export default function Navbar() {
           <Link href="/scan" onClick={() => setOpen(false)}>Scan</Link>
           <Link href="/compare" onClick={() => setOpen(false)}>Compare</Link>
           <Link href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-          <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
+          <a href="https://blog.truetechfinder.com" onClick={() => setOpen(false)}>Blog</a>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/scan" onClick={() => setOpen(false)}>
             <button className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg w-full">
