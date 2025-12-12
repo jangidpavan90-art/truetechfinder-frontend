@@ -6,12 +6,30 @@ export default function ScannerInput() {
   const [url, setUrl] = useState("");
   const router = useRouter();
 
+  const normalizeUrl = (input: string): string => {
+    let normalized = input.trim();
+    if (!normalized) return "";
+    
+    if (!normalized.startsWith("http://") && !normalized.startsWith("https://")) {
+      normalized = "https://" + normalized;
+    }
+    
+    return normalized;
+  };
+
   const handleScan = () => {
-    if (!url) {
+    if (!url.trim()) {
       alert("Please enter a URL first.");
       return;
     }
-    router.push(`/scan?url=${encodeURIComponent(url)}`);
+    const normalizedUrl = normalizeUrl(url);
+    router.push(`/scan?url=${encodeURIComponent(normalizedUrl)}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleScan();
+    }
   };
 
   return (
@@ -20,7 +38,8 @@ export default function ScannerInput() {
         type="text"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter a website URL"
+        onKeyDown={handleKeyDown}
+        placeholder="Enter a website URL (e.g. example.com)"
         className="flex-1 px-4 py-3 border border-[#C4D3E0] rounded-lg text-[#1A2A45] bg-white placeholder-[#7A8A9C] focus:outline-none focus:border-[#FF8A3D] focus:ring-2 focus:ring-[#FF8A3D]/20 transition"
       />
       <button

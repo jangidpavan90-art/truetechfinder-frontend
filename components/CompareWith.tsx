@@ -11,11 +11,23 @@ export default function CompareWith({ currentUrl }: CompareWithProps) {
   const [otherUrl, setOtherUrl] = useState("");
   const router = useRouter();
 
+  const normalizeUrl = (input: string): string => {
+    let normalized = input.trim();
+    if (!normalized) return "";
+    
+    if (!normalized.startsWith("http://") && !normalized.startsWith("https://")) {
+      normalized = "https://" + normalized;
+    }
+    
+    return normalized;
+  };
+
   const handleCompare = () => {
     if (!otherUrl.trim()) return;
 
+    const normalizedOtherUrl = normalizeUrl(otherUrl);
     router.push(
-      `/compare?url1=${encodeURIComponent(currentUrl)}&url2=${encodeURIComponent(otherUrl)}`
+      `/compare?url1=${encodeURIComponent(currentUrl)}&url2=${encodeURIComponent(normalizedOtherUrl)}`
     );
   };
 
