@@ -12,10 +12,10 @@ export default function TechCategoryCard({ title, items = [] }: TechCategoryCard
   const Icon = getCategoryIcon(title);
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+    <div className="bg-white border border-[#DCE4EC] rounded-xl p-6 shadow-sm hover:shadow-md transition">
       <div className="flex items-center gap-3 mb-4">
-        <Icon className="w-6 h-6 text-blue-600" />
-        <h3 className="text-xl font-semibold text-slate-800">{title}</h3>
+        <Icon className="w-6 h-6 text-[#FF8A3D]" />
+        <h3 className="text-xl font-semibold text-[#1A2A45]">{title}</h3>
       </div>
 
       <div className="flex flex-wrap gap-3">

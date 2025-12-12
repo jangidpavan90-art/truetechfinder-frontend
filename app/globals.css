@@ -5,35 +5,29 @@ html {
 }
 
 :root {
-  --background: #F8FAFC;
-  --foreground: #0F172A;
+  --background: #D9E4EE;
+  --foreground: #1A2A45;
   
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
+  --primary: #FF8A3D;
+  --primary-hover: #E6762E;
   
-  --accent-purple: #7C3AED;
+  --accent-orange: #FF8A3D;
   --accent-green: #16A34A;
   
   --card-bg: #FFFFFF;
-  --border-color: #E2E8F0;
+  --border-color: #C4D3E0;
+  --border-light: #DCE4EC;
   
-  --text-title: #0F172A;
-  --text-body: #475569;
-  --text-muted: #64748B;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0F172A;
-    --foreground: #E2E8F0;
-    
-    --card-bg: #1E293B;
-    --border-color: #334155;
-    
-    --text-title: #F1F5F9;
-    --text-body: #CBD5E1;
-    --text-muted: #94A3B8;
-  }
+  --text-title: #1A2A45;
+  --text-body: #4A5A70;
+  --text-muted: #7A8A9C;
+  
+  --header-bg: #D0D8E2;
+  --section-light: #E7EDF3;
+  --section-alt: #F3F7FA;
+  
+  --hero-top: #E8F1F5;
+  --hero-bottom: #D9E4EE;
 }
 
 body {
@@ -78,7 +72,7 @@ h4 {
 
 .brand-card {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-light);
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -96,6 +90,7 @@ h4 {
   border-radius: 0.5rem;
   font-weight: 500;
   transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 14px 0 rgba(255, 138, 61, 0.25);
 }
 
 .brand-btn-primary:hover {
@@ -119,13 +114,17 @@ h4 {
 }
 
 .gradient-hero {
-  background: linear-gradient(135deg, #EFF6FF 0%, #F5F3FF 50%, #FDF4FF 100%);
+  background: linear-gradient(180deg, #E8F1F5 0%, #D9E4EE 100%);
+}
+
+.gradient-subsection {
+  background: linear-gradient(180deg, #F2F6FA 0%, #E7EDF3 100%);
 }
 
 .floating-shape {
   position: absolute;
   border-radius: 9999px;
-  opacity: 0.3;
+  opacity: 0.4;
   filter: blur(40px);
   pointer-events: none;
 }
@@ -161,4 +160,32 @@ h4 {
 .animate-pulse-slow-delay-1-5 {
   animation: pulse-slow 4s ease-in-out infinite;
   animation-delay: 1.5s;
+}
+
+.bg-header {
+  background-color: #D0D8E2;
+}
+
+.bg-section-light {
+  background-color: #E7EDF3;
+}
+
+.bg-section-alt {
+  background-color: #F3F7FA;
+}
+
+.bg-cta-strip {
+  background-color: #D9E4EE;
+}
+
+.text-navy {
+  color: #1A2A45;
+}
+
+.text-slate-gray {
+  color: #4A5A70;
+}
+
+.border-soft-blue {
+  border-color: #C4D3E0;
 }

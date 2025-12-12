@@ -42,7 +42,7 @@ export default function CollapsibleJSON({ data, filename = "scan-result.json" }:
       <div className="flex flex-wrap items-center justify-between gap-4">
         <button
           onClick={() => setOpen(!open)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#E7EDF3] hover:bg-[#DCE4EC] rounded-lg text-sm transition text-[#1A2A45]"
         >
           {open ? "Hide Raw JSON" : "View Raw JSON"}
           <svg className="w-4 h-4 transition-transform" style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -53,11 +53,11 @@ export default function CollapsibleJSON({ data, filename = "scan-result.json" }:
         <div className="flex gap-2">
           <button
             onClick={copyToClipboard}
-            className="px-3 py-2 bg-white border rounded-md text-sm hover:shadow-sm transition flex items-center gap-2"
+            className="px-3 py-2 bg-white border border-[#DCE4EC] rounded-md text-sm hover:shadow-sm transition flex items-center gap-2 text-[#1A2A45]"
           >
             {copied ? (
               <>
-                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <svg className="w-4 h-4 text-[#16A34A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 Copied!
@@ -75,7 +75,7 @@ export default function CollapsibleJSON({ data, filename = "scan-result.json" }:
 
           <button
             onClick={downloadJSON}
-            className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition flex items-center gap-2"
+            className="px-3 py-2 bg-[#FF8A3D] text-white rounded-md text-sm hover:bg-[#E6762E] transition flex items-center gap-2 shadow-sm shadow-[#FF8A3D]/25"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -86,7 +86,7 @@ export default function CollapsibleJSON({ data, filename = "scan-result.json" }:
       </div>
 
       {open && (
-        <div className="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto text-sm" style={{ maxHeight: "420px" }}>
+        <div className="mt-4 bg-[#1A2A45] text-gray-100 p-4 rounded-lg overflow-auto text-sm" style={{ maxHeight: "420px" }}>
           <pre>{jsonText}</pre>
         </div>
       )}

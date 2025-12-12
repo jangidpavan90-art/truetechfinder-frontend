@@ -2,14 +2,14 @@ import SkeletonBlock from "./SkeletonBlock";
 
 export default function CompareSkeleton() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10 bg-[#F3F7FA] min-h-screen">
 
       <SkeletonBlock className="h-10 w-80 mx-auto" />
       <SkeletonBlock className="h-6 w-96 mx-auto" />
 
       <div className="grid md:grid-cols-2 gap-6">
         {[1, 2].map((i) => (
-          <div key={i} className="bg-white border rounded-xl p-4 shadow-sm">
+          <div key={i} className="bg-white border border-[#DCE4EC] rounded-xl p-4 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <SkeletonBlock className="w-8 h-8 rounded-md" />
               <SkeletonBlock className="h-5 w-32" />
@@ -19,14 +19,14 @@ export default function CompareSkeleton() {
         ))}
       </div>
 
-      <div className="bg-white border rounded-xl p-6 shadow-sm">
+      <div className="bg-white border border-[#DCE4EC] rounded-xl p-6 shadow-sm">
         <div className="flex justify-center gap-10 mb-6">
           <SkeletonBlock className="h-16 w-20" />
           <SkeletonBlock className="h-16 w-20" />
           <SkeletonBlock className="h-16 w-20" />
         </div>
         <SkeletonBlock className="h-4 w-full mb-6" />
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4">
+        <div className="bg-gradient-to-r from-[#FFF7ED] to-[#FEF3C7] rounded-lg p-4">
           <SkeletonBlock className="h-5 w-32 mb-3" />
           <SkeletonBlock className="h-4 w-full mb-2" />
           <SkeletonBlock className="h-4 w-4/5" />
@@ -41,7 +41,7 @@ export default function CompareSkeleton() {
 
       <div className="flex flex-col gap-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white border rounded-xl p-6 shadow-sm">
+          <div key={i} className="bg-white border border-[#DCE4EC] rounded-xl p-6 shadow-sm">
             <SkeletonBlock className="h-6 w-32 mb-4" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <SkeletonBlock className="h-24" />

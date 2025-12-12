@@ -8,14 +8,13 @@ export default function ToggleScanMode() {
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-10">
-      {/* Toggle Buttons */}
       <div className="flex justify-center gap-4 mb-6">
         <button
           onClick={() => setMode("single")}
-          className={`px-4 py-2 rounded-lg ${
+          className={`px-4 py-2 rounded-lg font-medium transition ${
             mode === "single"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-[#FF8A3D] text-white shadow-md shadow-[#FF8A3D]/25"
+              : "bg-white text-[#1A2A45] border border-[#C4D3E0] hover:border-[#FF8A3D]"
           }`}
         >
           Single Scan
@@ -23,17 +22,16 @@ export default function ToggleScanMode() {
 
         <button
           onClick={() => setMode("compare")}
-          className={`px-4 py-2 rounded-lg ${
+          className={`px-4 py-2 rounded-lg font-medium transition ${
             mode === "compare"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-[#FF8A3D] text-white shadow-md shadow-[#FF8A3D]/25"
+              : "bg-white text-[#1A2A45] border border-[#C4D3E0] hover:border-[#FF8A3D]"
           }`}
         >
           Compare Scan
         </button>
       </div>
 
-      {/* Conditional Rendering */}
       {mode === "single" ? <ScannerInput /> : <CompareInput />}
     </div>
   );

@@ -55,10 +55,10 @@ function CompareContent() {
 
   if (!url1 || !url2) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">Missing URLs for comparison</div>
-          <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded-lg">Go Home</a>
+          <a href="/" className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition">Go Home</a>
         </div>
       </div>
     );
@@ -70,11 +70,11 @@ function CompareContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">Comparison Error</div>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded-lg">Try Again</a>
+          <p className="text-[#4A5A70] mb-4">{error}</p>
+          <a href="/" className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition">Try Again</a>
         </div>
       </div>
     );
@@ -82,7 +82,7 @@ function CompareContent() {
 
   if (!result1 || !result2) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-red-500">Failed to load comparison data.</div>
       </div>
     );
@@ -123,47 +123,47 @@ function CompareContent() {
   };
 
   return (
-    <div className="min-h-screen px-6 py-10 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2 text-center">
+    <div className="min-h-screen px-6 py-10 max-w-6xl mx-auto bg-[#F3F7FA]">
+      <h1 className="text-3xl font-bold mb-2 text-center text-[#1A2A45]">
         Technology Comparison
       </h1>
       <p className="text-center text-lg mb-8">
-        <span className="text-blue-600 font-semibold">{formatUrl(url1)}</span>
-        <span className="mx-3 text-slate-400">vs</span>
-        <span className="text-purple-600 font-semibold">{formatUrl(url2)}</span>
+        <span className="text-[#FF8A3D] font-semibold">{formatUrl(url1)}</span>
+        <span className="mx-3 text-[#7A8A9C]">vs</span>
+        <span className="text-[#1A2A45] font-semibold">{formatUrl(url2)}</span>
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-10">
-        <SitePreview url={url1} compact accentColor="blue" />
-        <SitePreview url={url2} compact accentColor="purple" />
+        <SitePreview url={url1} compact accentColor="orange" />
+        <SitePreview url={url2} compact accentColor="slate" />
       </div>
 
-      <div className="bg-white border rounded-xl p-6 shadow-sm mb-10">
+      <div className="bg-white border border-[#DCE4EC] rounded-xl p-6 shadow-sm mb-10">
         <div className="flex justify-center gap-8 md:gap-16 text-center mb-6">
           <div>
-            <div className="text-4xl font-bold text-green-600">{shared.length}</div>
-            <div className="text-slate-600 mt-1">Shared</div>
+            <div className="text-4xl font-bold text-[#16A34A]">{shared.length}</div>
+            <div className="text-[#4A5A70] mt-1">Shared</div>
           </div>
-          <div className="border-l border-gray-200"></div>
+          <div className="border-l border-[#DCE4EC]"></div>
           <div>
-            <div className="text-4xl font-bold text-blue-600">{aOnly.length}</div>
-            <div className="text-slate-600 mt-1">Only {formatUrl(url1)}</div>
+            <div className="text-4xl font-bold text-[#FF8A3D]">{aOnly.length}</div>
+            <div className="text-[#4A5A70] mt-1">Only {formatUrl(url1)}</div>
           </div>
-          <div className="border-l border-gray-200"></div>
+          <div className="border-l border-[#DCE4EC]"></div>
           <div>
-            <div className="text-4xl font-bold text-purple-600">{bOnly.length}</div>
-            <div className="text-slate-600 mt-1">Only {formatUrl(url2)}</div>
+            <div className="text-4xl font-bold text-[#1A2A45]">{bOnly.length}</div>
+            <div className="text-[#4A5A70] mt-1">Only {formatUrl(url2)}</div>
           </div>
         </div>
 
         <SimilarityBar score={score} />
 
-        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+        <div className="mt-6 p-4 bg-gradient-to-r from-[#FFF7ED] to-[#FEF3C7] rounded-lg border border-[#FDBA74]">
           <div className="flex items-start gap-2">
-            <span className="text-blue-600 text-xl">⚡</span>
+            <span className="text-[#FF8A3D] text-xl">⚡</span>
             <div>
-              <h4 className="font-semibold text-slate-800 mb-1">AI Analysis</h4>
-              <p className="text-slate-700 leading-relaxed">{insights}</p>
+              <h4 className="font-semibold text-[#1A2A45] mb-1">AI Analysis</h4>
+              <p className="text-[#4A5A70] leading-relaxed">{insights}</p>
             </div>
           </div>
         </div>
@@ -172,16 +172,16 @@ function CompareContent() {
       <div className="mb-6">
         <div className="flex flex-wrap gap-4 justify-center text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-green-100 border border-green-300"></div>
-            <span className="text-slate-600">Shared technologies</span>
+            <div className="w-4 h-4 rounded-full bg-[#DCFCE7] border border-[#16A34A]"></div>
+            <span className="text-[#4A5A70]">Shared technologies</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-blue-100 border border-blue-300"></div>
-            <span className="text-slate-600">Unique to {formatUrl(url1)}</span>
+            <div className="w-4 h-4 rounded-full bg-[#FFEDD5] border border-[#FF8A3D]"></div>
+            <span className="text-[#4A5A70]">Unique to {formatUrl(url1)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-purple-100 border border-purple-300"></div>
-            <span className="text-slate-600">Unique to {formatUrl(url2)}</span>
+            <div className="w-4 h-4 rounded-full bg-[#E7EDF3] border border-[#4A5A70]"></div>
+            <span className="text-[#4A5A70]">Unique to {formatUrl(url2)}</span>
           </div>
         </div>
       </div>
@@ -206,11 +206,11 @@ function CompareContent() {
 
       <div className="mt-12 grid md:grid-cols-2 gap-6">
         <div>
-          <h4 className="text-lg font-semibold mb-2 text-blue-600">Raw Data — {formatUrl(url1)}</h4>
+          <h4 className="text-lg font-semibold mb-2 text-[#FF8A3D]">Raw Data — {formatUrl(url1)}</h4>
           <CollapsibleJSON data={result1} filename={`${formatUrl(url1)}-scan.json`} />
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-2 text-purple-600">Raw Data — {formatUrl(url2)}</h4>
+          <h4 className="text-lg font-semibold mb-2 text-[#1A2A45]">Raw Data — {formatUrl(url2)}</h4>
           <CollapsibleJSON data={result2} filename={`${formatUrl(url2)}-scan.json`} />
         </div>
       </div>
@@ -218,7 +218,7 @@ function CompareContent() {
       <div className="mt-10 text-center">
         <a 
           href="/" 
-          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="inline-block px-6 py-3 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition shadow-md shadow-[#FF8A3D]/25"
         >
           Compare More Sites
         </a>
@@ -238,8 +238,8 @@ function formatUrl(url: string): string {
 export default function ComparePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
+        <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-[#FF8A3D] border-t-transparent"></div>
       </div>
     }>
       <CompareContent />

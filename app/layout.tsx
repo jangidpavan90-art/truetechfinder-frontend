@@ -26,7 +26,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.svg" />
         <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.png" />
-        <meta name="theme-color" content="#2563EB" />
+        <meta name="theme-color" content="#FF8A3D" />
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XJFN67W6X5"
@@ -41,7 +41,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-white text-slate-900">
+      <body className="bg-[#D9E4EE] text-[#1A2A45]">
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

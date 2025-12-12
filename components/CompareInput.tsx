@@ -20,21 +20,21 @@ export default function CompareInput() {
       <input
         type="text"
         placeholder="First website URL"
-        className="px-4 py-3 border rounded-lg text-black"
+        className="px-4 py-3 border border-[#C4D3E0] rounded-lg text-[#1A2A45] bg-white placeholder-[#7A8A9C] focus:outline-none focus:border-[#FF8A3D] focus:ring-2 focus:ring-[#FF8A3D]/20 transition"
         value={url1}
         onChange={(e) => setUrl1(e.target.value)}
       />
       <input
         type="text"
         placeholder="Second website URL"
-        className="px-4 py-3 border rounded-lg text-black"
+        className="px-4 py-3 border border-[#C4D3E0] rounded-lg text-[#1A2A45] bg-white placeholder-[#7A8A9C] focus:outline-none focus:border-[#FF8A3D] focus:ring-2 focus:ring-[#FF8A3D]/20 transition"
         value={url2}
         onChange={(e) => setUrl2(e.target.value)}
       />
 
       <button
         onClick={handleCompare}
-        className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 mt-2"
+        className="px-6 py-3 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] mt-2 transition shadow-md shadow-[#FF8A3D]/25 font-medium"
       >
         Compare
       </button>

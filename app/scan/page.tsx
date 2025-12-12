@@ -51,10 +51,10 @@ function ScanContent() {
 
   if (!url) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">No URL provided</div>
-          <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded-lg">Go Home</a>
+          <a href="/" className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition">Go Home</a>
         </div>
       </div>
     );
@@ -66,11 +66,11 @@ function ScanContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">Scan Error</div>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <a href="/" className="px-4 py-2 bg-blue-600 text-white rounded-lg">Try Again</a>
+          <p className="text-[#4A5A70] mb-4">{error}</p>
+          <a href="/" className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition">Try Again</a>
         </div>
       </div>
     );
@@ -78,7 +78,7 @@ function ScanContent() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
         <div className="text-red-500">No data found for this scan.</div>
       </div>
     );
@@ -113,25 +113,25 @@ function ScanContent() {
   const aiText = data?.ai_insights || fallbackInsights();
 
   return (
-    <div className="min-h-screen px-6 py-10 max-w-6xl mx-auto">
+    <div className="min-h-screen px-6 py-10 max-w-6xl mx-auto bg-[#F3F7FA]">
 
       <SitePreview url={url} />
 
       <ResultsSummary url={url} />
 
-      <div className="bg-white border rounded-xl p-6 shadow-sm mb-8 text-center">
+      <div className="bg-white border border-[#DCE4EC] rounded-xl p-6 shadow-sm mb-8 text-center">
         <div className="flex justify-center gap-12 md:gap-20">
 
           <div>
-            <div className="text-4xl font-bold text-blue-600">{totalTech}</div>
-            <div className="text-slate-600 mt-1">Technologies Detected</div>
+            <div className="text-4xl font-bold text-[#FF8A3D]">{totalTech}</div>
+            <div className="text-[#4A5A70] mt-1">Technologies Detected</div>
           </div>
 
-          <div className="border-l border-gray-200"></div>
+          <div className="border-l border-[#DCE4EC]"></div>
 
           <div>
-            <div className="text-4xl font-bold text-green-600">{activeCategories}</div>
-            <div className="text-slate-600 mt-1">Categories Used</div>
+            <div className="text-4xl font-bold text-[#16A34A]">{activeCategories}</div>
+            <div className="text-[#4A5A70] mt-1">Categories Used</div>
           </div>
 
         </div>
@@ -139,7 +139,7 @@ function ScanContent() {
 
       <AIInsights insights={aiText} />
 
-      <h2 className="text-2xl font-bold mb-6 mt-10">Detected Technologies</h2>
+      <h2 className="text-2xl font-bold mb-6 mt-10 text-[#1A2A45]">Detected Technologies</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
         {categoryOrder.map((cat) => {
@@ -166,8 +166,8 @@ function ScanContent() {
         })()}-scan.json`} 
       />
 
-      <div className="mt-12 border-t pt-10">
-        <h3 className="text-xl font-semibold text-center mb-8 text-slate-700">What would you like to do next?</h3>
+      <div className="mt-12 border-t border-[#DCE4EC] pt-10">
+        <h3 className="text-xl font-semibold text-center mb-8 text-[#4A5A70]">What would you like to do next?</h3>
         
         <div className="flex flex-col gap-6">
           <CompareWith currentUrl={url} />
@@ -182,8 +182,8 @@ function ScanContent() {
 export default function ScanPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#E7EDF3]">
+        <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-[#FF8A3D] border-t-transparent"></div>
       </div>
     }>
       <ScanContent />

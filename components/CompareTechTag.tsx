@@ -9,9 +9,9 @@ export default function CompareTechTag({ name, type }: CompareTechTagProps) {
   const Icon = getTechIcon(name);
 
   const styles = {
-    shared: "bg-green-50 border-green-300 text-green-700",
-    uniqueA: "bg-blue-50 border-blue-300 text-blue-700",
-    uniqueB: "bg-purple-50 border-purple-300 text-purple-700",
+    shared: "bg-[#DCFCE7] border-[#16A34A] text-[#166534]",
+    uniqueA: "bg-[#FFEDD5] border-[#FF8A3D] text-[#9A3412]",
+    uniqueB: "bg-[#E7EDF3] border-[#4A5A70] text-[#1A2A45]",
   };
 
   return (
