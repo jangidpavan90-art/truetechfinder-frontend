@@ -24,7 +24,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.png" />
         <meta name="theme-color" content="#FF8A3D" />
 

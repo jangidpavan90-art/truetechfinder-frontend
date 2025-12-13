@@ -11,7 +11,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         
         <Link href="/">
-          <img src="/logo-header.svg" alt="TrueTechFinder" className="h-9 cursor-pointer" />
+          <img src="/logo.png" alt="TrueTechFinder" className="h-10 cursor-pointer" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-[#1A2A45]">
