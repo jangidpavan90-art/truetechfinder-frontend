@@ -7,7 +7,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="w-full bg-[#D0D8E2] border-b border-[#C4D3E0] sticky top-0 z-50">
+    <header className="w-full bg-white border-b border-[#E7EDF3] sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         
         <Link href="/">
@@ -39,7 +39,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-[#D0D8E2] border-t border-[#C4D3E0] py-4 px-6 flex flex-col gap-4 text-[#1A2A45]">
+        <div className="md:hidden bg-white border-t border-[#E7EDF3] py-4 px-6 flex flex-col gap-4 text-[#1A2A45]">
           <Link href="/scan" onClick={() => setOpen(false)}>Scan</Link>
           <Link href="/compare" onClick={() => setOpen(false)}>Compare</Link>
           <Link href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
