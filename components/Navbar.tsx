@@ -14,15 +14,14 @@ export default function Navbar() {
           <img src="/logo.png" alt="TrueTechFinder" className="h-10 cursor-pointer" />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-[#1A2A45]">
-          <Link href="/scan" className="hover:text-[#FF8A3D] transition">Scan</Link>
-          <Link href="/compare" className="hover:text-[#FF8A3D] transition">Compare</Link>
-          <Link href="/pricing" className="hover:text-[#FF8A3D] transition">Pricing</Link>
-          <a href="https://blog.truetechfinder.com" className="hover:text-[#FF8A3D] transition">Blog</a>
-          <Link href="/about" className="hover:text-[#FF8A3D] transition">About</Link>
-        </nav>
-
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6 text-[#1A2A45]">
+            <Link href="/" className="hover:text-[#FF8A3D] transition">Home</Link>
+            <Link href="/about" className="hover:text-[#FF8A3D] transition">About</Link>
+            <Link href="/pricing" className="hover:text-[#FF8A3D] transition">Pricing</Link>
+            <a href="https://blog.truetechfinder.com" className="hover:text-[#FF8A3D] transition">Blog</a>
+          </nav>
+          
           <Link href="/scan">
             <button className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition shadow-md shadow-[#FF8A3D]/25">
               Scan a Website
@@ -40,11 +39,10 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden bg-white border-t border-[#E7EDF3] py-4 px-6 flex flex-col gap-4 text-[#1A2A45]">
-          <Link href="/scan" onClick={() => setOpen(false)}>Scan</Link>
-          <Link href="/compare" onClick={() => setOpen(false)}>Compare</Link>
+          <Link href="/" onClick={() => setOpen(false)}>Home</Link>
+          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
           <a href="https://blog.truetechfinder.com" onClick={() => setOpen(false)}>Blog</a>
-          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/scan" onClick={() => setOpen(false)}>
             <button className="mt-2 px-4 py-2 bg-[#FF8A3D] text-white rounded-lg w-full hover:bg-[#E6762E]">
               Scan a Website
