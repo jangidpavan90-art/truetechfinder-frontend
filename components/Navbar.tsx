@@ -22,7 +22,7 @@ export default function Navbar() {
             <a href="https://blog.truetechfinder.com" className="hover:text-[#FF8A3D] transition">Blog</a>
           </nav>
           
-          <Link href="/scan">
+          <Link href="/">
             <button className="px-4 py-2 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition shadow-md shadow-[#FF8A3D]/25">
               Scan a Website
             </button>
@@ -43,7 +43,7 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
           <a href="https://blog.truetechfinder.com" onClick={() => setOpen(false)}>Blog</a>
-          <Link href="/scan" onClick={() => setOpen(false)}>
+          <Link href="/" onClick={() => setOpen(false)}>
             <button className="mt-2 px-4 py-2 bg-[#FF8A3D] text-white rounded-lg w-full hover:bg-[#E6762E]">
               Scan a Website
             </button>
