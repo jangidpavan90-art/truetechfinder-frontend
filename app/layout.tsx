@@ -6,8 +6,8 @@ import Footer from "../components/Footer";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "TrueTechFinder – Find What Powers Any Website",
-  description: "Find what powers any website — instantly. AI-enhanced detection, side-by-side comparisons, and export-ready insights.",
+  title: "Website Technology Lookup Tool | AI-Powered Stack Detection – TrueTechFinder",
+  description: "Scan any website to find what technology it uses — CMS, hosting, analytics, frameworks, security and more — with AI-powered insights, comparisons and exportable results.",
 };
 
 export default function RootLayout({
