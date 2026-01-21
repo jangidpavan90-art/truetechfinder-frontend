@@ -268,7 +268,7 @@ export default function Home() {
           <p className="text-[#4A5A70] mb-8">
             Ready to learn more? Visit the{" "}
             <a href="https://blog.truetechfinder.com" className="text-[#FF8A3D] hover:underline font-medium">Blog</a>
-            {" "}or compare two websites below.
+            , scan any website or compare two websites below.
           </p>
           <ToggleScanMode />
         </div>
