@@ -12,6 +12,19 @@ TrueTechFinder is a SaaS web application that analyzes websites to detect their 
 - Site previews with favicons and screenshots
 - JSON export functionality
 
+## Recent Changes (January 2026)
+
+**Homepage Conversion/SEO Optimization:**
+- New hero headline: "See What Technology Any Website Uses — With AI-Powered Insights"
+- Subheadline includes SEO keywords (CMS, hosting, analytics, frameworks, security)
+- Trust indicators: "Free to use • No signup required" + three trust points
+- "Stop Guessing" problem section added
+- "Built For" 4-column user segments (Agencies, Founders, Marketers, Developers)
+- Key Features section with 6 feature cards
+- Simplified "How It Works" to 4 steps
+- Internal linking prompts (Blog and Compare page)
+- Updated SEO meta title and description
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
