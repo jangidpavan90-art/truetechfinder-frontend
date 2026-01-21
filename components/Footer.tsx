@@ -17,7 +17,6 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-[#4A5A70]">
             <li><Link href="/" className="hover:text-[#FF8A3D] transition">Home</Link></li>
             <li><Link href="/about" className="hover:text-[#FF8A3D] transition">About</Link></li>
-            <li><Link href="/pricing" className="hover:text-[#FF8A3D] transition">Pricing</Link></li>
             <li><a href="https://blog.truetechfinder.com" className="hover:text-[#FF8A3D] transition">Blog</a></li>
           </ul>
         </div>
