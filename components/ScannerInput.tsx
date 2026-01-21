@@ -46,7 +46,7 @@ export default function ScannerInput() {
         onClick={handleScan}
         className="px-6 py-3 bg-[#FF8A3D] text-white rounded-lg hover:bg-[#E6762E] transition shadow-md shadow-[#FF8A3D]/25 font-medium"
       >
-        Scan
+        Start Free Scan
       </button>
     </div>
   );
