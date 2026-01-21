@@ -265,12 +265,12 @@ export default function Home() {
 
       <section className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-[#4A5A70]">
+          <p className="text-[#4A5A70] mb-8">
             Ready to learn more? Visit the{" "}
             <a href="https://blog.truetechfinder.com" className="text-[#FF8A3D] hover:underline font-medium">Blog</a>
-            {" "}or compare two websites on our{" "}
-            <Link href="/compare" className="text-[#FF8A3D] hover:underline font-medium">Compare page</Link>.
+            {" "}or compare two websites below.
           </p>
+          <ToggleScanMode />
         </div>
       </section>
 
