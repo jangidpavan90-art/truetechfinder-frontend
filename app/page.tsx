@@ -264,13 +264,29 @@ export default function Home() {
       </section>
 
       <section className="bg-white py-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-[#4A5A70] mb-8">
-            Ready to learn more? Visit the{" "}
-            <a href="https://blog.truetechfinder.com" className="text-[#FF8A3D] hover:underline font-medium">Blog</a>
-            , scan any website or compare two websites below.
-          </p>
-          <ToggleScanMode />
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#1A2A45]">Learn More</h2>
+          
+          <div className="space-y-4 text-[#4A5A70] text-center mb-10">
+            <p>
+              Learn how website technology analysis works in our in-depth guides and comparisons on the{" "}
+              <a href="https://blog.truetechfinder.com" className="text-[#FF8A3D] hover:underline font-medium">TrueTechFinder blog</a>.
+            </p>
+            <p>
+              Not sure where to start? Read our guide on{" "}
+              <a href="https://blog.truetechfinder.com/check-what-technology-a-website-uses/" className="text-[#FF8A3D] hover:underline font-medium">how to check what technology a website uses</a>.
+            </p>
+            <p>
+              We also compare popular tools like{" "}
+              <a href="https://blog.truetechfinder.com/builtwith-vs-wappalyzer-vs-truetechfinder/" className="text-[#FF8A3D] hover:underline font-medium">BuiltWith vs Wappalyzer vs TrueTechFinder</a>{" "}
+              to help you choose the right solution.
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-[#4A5A70] mb-6">Ready to try it? Scan any website or compare two websites below.</p>
+            <ToggleScanMode />
+          </div>
         </div>
       </section>
 
